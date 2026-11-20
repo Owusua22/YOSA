@@ -181,9 +181,20 @@ export default function Home() {
                 ))}
               </div>
 
-              <a className="ch-btn ch-btn-primary" href="#programmes">
-                Explore Programmes <Icon name="arrow" size={16} />
-              </a>
+              <div className="ch-about-actions">
+                <a className="ch-btn ch-btn-primary" href="#programmes">
+                  Explore Programmes <Icon name="arrow" size={16} />
+                </a>
+                <a className="ch-call-pill" href={`tel:${site.phone.replace(/\s+/g, "")}`}>
+                  <span className="ch-call-icon">
+                    <Icon name="mail" size={18} />
+                  </span>
+                  <span>
+                    <small>Call Any Time</small>
+                    <strong>{site.phone}</strong>
+                  </span>
+                </a>
+              </div>
             </Reveal>
           </div>
         </section>
