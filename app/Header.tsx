@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Icon, Socials } from "./icons";
 
-const nav = [["About", "#about"], ["What we do", "#programmes"], ["Impact", "#impact"], ["Support", "#get-involved"]];
-const util = [["Corporate partnerships", "#get-in-touch"], ["Impact", "#impact"], ["Contact", "#get-in-touch"]];
+const nav = [["About", "#about"], ["What we do", "#programmes"], ["Impact", "#impact"], ["Stories", "#testimonials"], ["Resources", "#resources"], ["Support", "#get-involved"]];
+const util = [["Corporate partnerships", "#get-in-touch"], ["Reports and publications", "#resources"], ["Contact", "#get-in-touch"]];
 
 export default function Header({ social, donateUrl }: { social: { label: string; href: string }[]; donateUrl: string }) {
   const [open, setOpen] = useState(false);

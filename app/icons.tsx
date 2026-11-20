@@ -18,6 +18,7 @@ const D: Record<string, string> = {
   users: "M16 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20c0-3 2.7-5 6-5s6 2 6 5M14.5 15.2c.5-.1 1-.2 1.5-.2 3.3 0 6 2 6 5",
   quote: "M5 17c0-5 2-8 5-9M14 17c0-5 2-8 5-9",
   book: "M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19a2 2 0 0 1 2-2h13",
+  arrow: "M5 12h14m0 0-6-6m6 6-6 6",
 };
 const FILLED = ["linkedin", "facebook"];
 

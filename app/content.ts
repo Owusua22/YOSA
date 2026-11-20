@@ -1,4 +1,8 @@
-// All editable wording, figures and links. Content below is taken from YOSA's public website (youthopportunitiessouthafrica.org) and brand guideline.
+// All editable wording, figures, links, photographs and quotes for the YOSA site.
+// Copy reflects the YOSA managers' review of 20 November 2026 (Life Skills items,
+// diagram order, testimonial plan, reports and newsletters). Figures come from YOSA's
+// published website (youthopportunitiessouthafrica.org, Oct 2026).
+
 export const site = {
   email: process.env.NEXT_PUBLIC_ENQUIRY_EMAIL ?? "info@youthopportunitiessouthafrica.org",
   phone: "063 071 2093",
@@ -22,6 +26,29 @@ export const site = {
   },
 };
 
+// Photographs supplied by the YOSA team (Drive archive, November 2026).
+// Files are optimised copies in public/photos/; originals stay in the Drive folder.
+// Replace a file with the same name to swap a picture without touching code.
+export const photos = {
+  hero: "/photos/hero.jpg",
+  careers: "/photos/careers-visit.jpg",
+  learning: "/photos/programme-learning.jpg",
+  lifeSkills: "/photos/programme-life-skills.jpg",
+  community: "/photos/programme-community.jpg",
+  impact: "/photos/impact.jpg",
+  team: "/photos/team.jpg",
+};
+
+export const photoAlt = {
+  hero: "YOSA learners and facilitators in red tracksuits gathered on the netball court at a partner school in Soweto",
+  careers: "A group of YOSA learners and staff in red shirts outside a glass office building",
+  learning: "Learners in school uniform gathered with a YOSA facilitator in a school courtyard",
+  lifeSkills: "Teenagers and YOSA staff laughing together outdoors after a programme session",
+  community: "A YOSA staff member with five children holding food parcels outside a school",
+  impact: "Young learners in uniform with a smiling YOSA teacher on a paved school walkway",
+  team: "Seven members of the YOSA team standing together on a paved courtyard",
+};
+
 export const reach = {
   note: "YOSA states that it actively and directly supports over 7 000 people (children and their community) through:",
   items: [
@@ -43,9 +70,25 @@ export const impact: { icon: string; label: string; note: string; from?: number;
 export const impactSource = "Source: YOSA impact page. Recorded outcomes in participating schools; they do not by themselves show that YOSA alone caused the change.";
 export const measure = ["Baseline established with partner schools", "Outcomes monitored against agreed indicators", "Data reviewed and reported in cycles", "Evidence stored and available for funder review"];
 
+// "What we do" — three programme pillars. Items are programme components, not links.
 export const pyd = [
   { key: "learning", label: "Learning support", icon: "book", items: ["Tutoring and curriculum coaching", "Digital training", "Spelling and writing support", "Subject choice and career guidance", "Merit and excellence recognition", "Counselling and group work"] },
-  { key: "life", label: "Life skills development", icon: "users", items: ["Sports and recreation", "Leadership development", "Public speaking and creative arts", "Behavioural support", "Computer skills training", "Psychosocial and reproductive health education", "Group engagement activities"] },
+  {
+    key: "life",
+    label: "Life skills development",
+    icon: "users",
+    items: [
+      "Sports and recreation",
+      "Leadership development",
+      "Public speaking and creative arts",
+      "Behavioural support",
+      "Computer skills training",
+      "Psychosocial support",
+      "Individual and group counselling",
+      "Sexual and reproductive health education",
+      "Group engagement activities",
+    ],
+  },
   { key: "community", label: "Community enrichment", icon: "school", items: ["Parent training", "Educator training", "Youth work-readiness initiatives", "Support to distressed families", "Nutritional support programmes", "Community-based group work"] },
 ];
 export const factors = ["Competence", "Confidence", "Character", "Connection", "Caring", "Contribution"];
@@ -75,4 +118,57 @@ export const quotes = {
   principal: { text: "Since implementing YOSA, we have seen a tangible shift in learner behaviour and academic engagement. The structured approach and measurable outcomes set it apart.", by: "School Principal, Partner School" },
   founder: { text: "None is born with anger or hate. These are results of social training. Positivity is trained too. We must be deliberate about Positive Youth Development.", by: "Dr. Astonishment Mapurisa, Founder & Director of YOSA" },
 };
-export const reportItems = ["Monthly programme reports", "Annual summaries", "Partner-aligned data presentations", "Newsletters and programme updates"];
+
+// Testimonials. Two contributors are still to be supplied by Astonishment:
+// set `pending` to false and add `quote`, `by`, `role` (and optionally `photo`).
+// Contributor portraits: square JPEG, 800 × 800 or larger, face centred.
+export type Testimonial = {
+  pending?: boolean;
+  quote?: string;
+  by?: string;
+  role?: string;
+  photo?: string | null;
+};
+
+export const testimonials: Testimonial[] = [
+  { quote: quotes.principal.text, by: "School Principal", role: "YOSA partner school, Soweto", photo: null },
+  { quote: quotes.founder.text, by: "Dr. Astonishment Mapurisa", role: "Founder & Director, YOSA", photo: null },
+  { pending: true, role: "Contributor testimonial" },
+  { pending: true, role: "Contributor testimonial" },
+];
+
+// Resources: one place for everything YOSA publishes, grouped by what a visitor is looking for.
+export const resources = {
+  intro: "Reports show what we delivered and what changed. Newsletters tell the story month by month. The gallery shows the work itself.",
+  note: "YOSA's full archive of reports and newsletters is being consolidated into one library organised by year and publication type. Until it is live, each link below opens the current collection on the YOSA website.",
+  inside: ["Annual reports and audited summaries", "Programme and funder reporting", "Monthly newsletters", "Photographs from programmes and events"],
+  groups: [
+    {
+      key: "reports",
+      icon: "download",
+      title: "Reports and publications",
+      desc: "Annual reports, programme reviews and funder reporting, with the data behind our outcomes.",
+      meta: "PDF · Annual and programme reports",
+      cta: "Open reports",
+      href: site.links.reports,
+    },
+    {
+      key: "newsletters",
+      icon: "mail",
+      title: "Monthly newsletters",
+      desc: "Short updates from the programme: what learners did, what changed, and what comes next.",
+      meta: "Web · Monthly programme updates",
+      cta: "Open newsletters",
+      href: site.links.newsletters,
+    },
+    {
+      key: "gallery",
+      icon: "users",
+      title: "Photo gallery",
+      desc: "Photographs from YOSA programmes, partner schools and community events.",
+      meta: "Web · Programme photography",
+      cta: "Open photo gallery",
+      href: site.links.gallery,
+    },
+  ],
+};
