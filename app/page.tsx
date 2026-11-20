@@ -133,9 +133,6 @@ export default function Home() {
                     <clipPath id="yosa-heart-clip">
                       <path d="M260,452 C260,452 24,310 24,158 C24,78 86,20 162,20 C208,20 244,44 260,78 C276,44 312,20 358,20 C434,20 496,78 496,158 C496,310 260,452 260,452 Z" />
                     </clipPath>
-                    <clipPath id="yosa-circle-clip">
-                      <circle cx="145" cy="145" r="76" />
-                    </clipPath>
                   </defs>
 
                   {/* Soft peach splash behind bottom-left */}
@@ -151,28 +148,24 @@ export default function Home() {
                     preserveAspectRatio="xMidYMid slice"
                     clipPath="url(#yosa-heart-clip)"
                   />
-
-                  {/* Orange ring + circular inset photo */}
-                  <circle cx="145" cy="145" r="88" fill="#eb5310" />
-                  <image
-                    href="/photos/library/img-1384.jpg"
-                    x="69"
-                    y="69"
-                    width="152"
-                    height="152"
-                    preserveAspectRatio="xMidYMid slice"
-                    clipPath="url(#yosa-circle-clip)"
-                  />
-
-                  {/* Orange 10+ Years badge on upper-right lobe */}
-                  <rect x="292" y="54" width="164" height="96" rx="48" fill="#eb5310" />
-                  <text x="374" y="100" textAnchor="middle" fill="#ffffff" fontSize="34" fontWeight="800">
-                    10+
-                  </text>
-                  <text x="374" y="126" textAnchor="middle" fill="#ffffff" fontSize="13" fontWeight="600">
-                    Years Of Impact
-                  </text>
                 </svg>
+
+                {/* Circular inset photo placed outside the heart (top-left) */}
+                <div className="ch-heart-inset">
+                  <Image
+                    src="/photos/library/img-1384.jpg"
+                    alt="YOSA learners"
+                    width={136}
+                    height={136}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
+
+                {/* 10+ Years Of Impact badge placed outside the heart (bottom-right) */}
+                <div className="ch-heart-badge">
+                  <strong>10+</strong>
+                  <span>Years Of Impact</span>
+                </div>
               </div>
             </Reveal>
 

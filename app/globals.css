@@ -255,9 +255,45 @@ a {
 }
 
 .ch-heart-collage {
+  position: relative;
   width: 100%;
   max-width: 520px;
   margin-inline: auto;
+}
+.ch-heart-inset {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 6px solid var(--accent);
+  box-shadow: 0 12px 28px rgba(17, 17, 22, 0.16);
+  background: #fff;
+}
+.ch-heart-badge {
+  position: absolute;
+  bottom: 18px;
+  right: -8px;
+  background: var(--accent);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 12px 28px rgba(235, 83, 16, 0.35);
+}
+.ch-heart-badge strong {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+.ch-heart-badge span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.2;
+  max-width: 82px;
 }
 .ch-heart-svg {
   width: 100%;
