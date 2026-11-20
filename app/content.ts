@@ -27,26 +27,70 @@ export const site = {
 };
 
 // Photographs supplied by the YOSA team (Drive archive, November 2026).
-// Files are optimised copies in public/photos/; originals stay in the Drive folder.
-// Replace a file with the same name to swap a picture without touching code.
+// The seven named files below are the section images; gallery items live in
+// public/photos/library/ at 1200 px, optimised from the originals in Drive.
 export const photos = {
   hero: "/photos/hero.jpg",
   careers: "/photos/careers-visit.jpg",
+  impact: "/photos/impact.jpg",
+  team: "/photos/team.jpg",
   learning: "/photos/programme-learning.jpg",
   lifeSkills: "/photos/programme-life-skills.jpg",
   community: "/photos/programme-community.jpg",
-  impact: "/photos/impact.jpg",
-  team: "/photos/team.jpg",
 };
 
 export const photoAlt = {
   hero: "YOSA learners and facilitators in red tracksuits gathered on the netball court at a partner school in Soweto",
-  careers: "A group of YOSA learners and staff in red shirts outside a glass office building",
-  learning: "Learners in school uniform gathered with a YOSA facilitator in a school courtyard",
-  lifeSkills: "Teenagers and YOSA staff laughing together outdoors after a programme session",
-  community: "A YOSA staff member with five children holding food parcels outside a school",
+  careers: "YOSA learners and staff in red shirts outside a glass office building",
   impact: "Young learners in uniform with a smiling YOSA teacher on a paved school walkway",
-  team: "Seven members of the YOSA team standing together on a paved courtyard",
+  team: "Members of the YOSA team standing together on a paved courtyard",
+};
+
+// Every photograph in the YOSA archive, ordered for a balanced gallery.
+const g = (file: string, alt: string) => ({ src: `/photos/library/${file}.jpg`, alt });
+
+export const gallery = {
+  meta: "Archive · 2025–2026",
+  title: "The programme in pictures",
+  lead: "Every photograph YOSA shared with us — learners, facilitators, families and partners across the programme's schools in Soweto.",
+  items: [
+    { src: photos.hero, alt: photoAlt.hero },
+    g("img-1405", "Teenagers and YOSA staff laughing together outdoors after a programme session"),
+    g("img-1611", "Learners in school uniform gathered with a YOSA facilitator in a school courtyard"),
+    { src: photos.community, alt: "A YOSA staff member with five children holding food parcels outside a school" },
+    { src: photos.careers, alt: photoAlt.careers },
+    g("img-1384", "Learners in red YOSA tracksuits and matric gowns with staff in a school yard"),
+    g("img-1388", "A large group of learners and YOSA staff photographed in a school courtyard"),
+    g("img-1390", "Learners and facilitators standing together on a paved school courtyard"),
+    g("img-1392", "A wide group portrait of learners and YOSA staff at a partner school"),
+    g("img-1405", "YOSA staff and learners in red and navy uniforms smiling for the camera"),
+    g("img-1557", "Learners and staff seated together beside a YOSA banner outside a school building"),
+    g("img-1561", "A seated group portrait with the YOSA banner at a partner school"),
+    g("img-1563", "Staff and learners arranged in two rows beside a YOSA banner"),
+    g("img-1573", "Six YOSA staff and partners standing on a paved walkway"),
+    g("img-1586", "YOSA staff and partners photographed on a school courtyard"),
+    g("img-1590", "Two YOSA staff members walking and talking across a paved courtyard"),
+    { src: photos.team, alt: photoAlt.team },
+    g("img-1595", "YOSA staff and partners in conversation outdoors"),
+    g("img-1609", "A wide view of learners gathered with YOSA staff on a school field"),
+    g("img-1613", "Learners in uniform and YOSA facilitators in a school courtyard"),
+    g("img-1692", "Two learners in blazers with two YOSA staff members"),
+    g("img-1693", "Learners in blazers and YOSA staff photographed together"),
+    g("img-1694", "Three learners in school uniform with a YOSA staff member"),
+    g("img-1699", "A line of learners in school uniform with YOSA staff behind them"),
+    g("img-1701", "Learners in blazers standing with YOSA staff on a school field"),
+    g("img-1703", "Learners and YOSA staff posed on a school field in winter light"),
+    { src: photos.impact, alt: photoAlt.impact },
+    g("img-20260601-113743-original", "Learners and a YOSA teacher on a paved school walkway"),
+    g("img-20260701-wa0025", "Learners in red tracksuits and matric gowns with YOSA staff in a school yard"),
+    g("img-20260701-wa0027", "A group portrait of YOSA learners and staff on a school yard"),
+    g("img-20260701-wa0029", "Learners and facilitators smiling together after a ceremony"),
+    g("img-20260701-wa0031", "YOSA learners in red uniforms standing with staff outdoors"),
+    g("img-20260701-wa0033", "A wide group portrait of learners and staff on a paved school yard"),
+    g("img-20260701-wa0035", "Learners in red tracksuits gathered with YOSA staff"),
+    g("img-20260701-wa0037", "A group of YOSA learners and facilitators photographed together"),
+    g("img-20260701-wa0039", "Learners and staff on the school yard at the end of a programme day"),
+  ],
 };
 
 export const reach = {
@@ -70,7 +114,7 @@ export const impact: { icon: string; label: string; note: string; from?: number;
 export const impactSource = "Source: YOSA impact page. Recorded outcomes in participating schools; they do not by themselves show that YOSA alone caused the change.";
 export const measure = ["Baseline established with partner schools", "Outcomes monitored against agreed indicators", "Data reviewed and reported in cycles", "Evidence stored and available for funder review"];
 
-// "What we do" — three programme pillars. Items are programme components, not links.
+// "What we do" — three programme areas. Items are components, not links.
 export const pyd = [
   { key: "learning", label: "Learning support", icon: "book", items: ["Tutoring and curriculum coaching", "Digital training", "Spelling and writing support", "Subject choice and career guidance", "Merit and excellence recognition", "Counselling and group work"] },
   {
@@ -148,7 +192,7 @@ export const resources = {
       icon: "download",
       title: "Reports and publications",
       desc: "Annual reports, programme reviews and funder reporting, with the data behind our outcomes.",
-      meta: "PDF · Annual and programme reports",
+      meta: "Annual and programme reports · PDF",
       cta: "Open reports",
       href: site.links.reports,
     },
@@ -157,7 +201,7 @@ export const resources = {
       icon: "mail",
       title: "Monthly newsletters",
       desc: "Short updates from the programme: what learners did, what changed, and what comes next.",
-      meta: "Web · Monthly programme updates",
+      meta: "Monthly programme updates",
       cta: "Open newsletters",
       href: site.links.newsletters,
     },
@@ -166,7 +210,7 @@ export const resources = {
       icon: "users",
       title: "Photo gallery",
       desc: "Photographs from YOSA programmes, partner schools and community events.",
-      meta: "Web · Programme photography",
+      meta: "Programme photography",
       cta: "Open photo gallery",
       href: site.links.gallery,
     },
