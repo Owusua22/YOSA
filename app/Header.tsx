@@ -1,56 +1,64 @@
 "use client";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { Icon, Socials } from "./icons";
+import { useState } from "react";
+import { site } from "./content";
 
-const nav = [
-  ["About", "#about"],
-  ["Programmes", "#programmes"],
-  ["Approach", "#approach"],
-  ["Impact", "#impact"],
-  ["Photographs", "#photographs"],
-  ["Resources", "#resources"],
+const NAV = [
+  { href: "#about", label: "About" },
+  { href: "#programmes", label: "Programmes" },
+  { href: "#approach", label: "Approach" },
+  { href: "#impact", label: "Impact" },
+  { href: "#photographs", label: "Photographs" },
+  { href: "#contact", label: "Contact" },
 ];
 
-export default function Header({ social, donateUrl }: { social: { label: string; href: string }[]; donateUrl: string }) {
+export function Header() {
   const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const esc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    const wide = () => window.innerWidth > 980 && setOpen(false);
-    window.addEventListener("keydown", esc);
-    window.addEventListener("resize", wide);
-    return () => { window.removeEventListener("keydown", esc); window.removeEventListener("resize", wide); };
-  }, []);
-  const close = () => setOpen(false);
-  const ext = donateUrl.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
   return (
-    <header className="site">
-      <div className="wrap top">
-        <a className="logo" href="#top" onClick={close} aria-label="YOSA, Youth Opportunities South Africa — top of page">
-          <Image src="/brand/yosa-wordmark.svg" alt="YOSA" width={549} height={280} priority />
+    <header className="ch-header">
+      <div className="ch-wrap ch-header-inner">
+        <a href="#" className="ch-logo" aria-label="YOSA Home">
+          <img src="/brand/yosa-wordmark.svg" alt="YOSA — Youth Opportunities South Africa" height={34} />
         </a>
-        <nav className="desk" aria-label="Main">
-          {nav.map(([l, h]) => <a key={l} href={h}>{l}</a>)}
+
+        <nav className="ch-nav" aria-label="Primary">
+          {NAV.map((n) => (
+            <a key={n.href} href={n.href}>
+              {n.label}
+            </a>
+          ))}
         </nav>
-        <div className="topActions">
-          <a className="btn sm" href={donateUrl} {...ext}>Donate</a>
+
+        <div className="ch-header-actions">
+          <a className="ch-btn ch-btn-primary ch-btn-sm" href={site.donateUrl}>
+            Donate Now
+          </a>
           <button
-            className="burger"
-            aria-label={open ? "Close menu" : "Open menu"}
+            type="button"
+            className="ch-burger"
+            aria-label="Toggle menu"
             aria-expanded={open}
-            aria-controls="mobile-menu"
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpen((v) => !v)}
           >
-            <span /><span />
+            <span />
+            <span />
+            <span />
           </button>
         </div>
       </div>
-      <nav id="mobile-menu" className={open ? "mob open" : "mob"} aria-label="Mobile">
-        {nav.map(([l, h]) => <a key={l} href={h} onClick={close}>{l}</a>)}
-        <a href="#get-in-touch" onClick={close}>Contact</a>
-        <Socials items={social} className="soc" />
-      </nav>
+
+      {open && (
+        <div id="mobile-menu" className="ch-mobile-menu">
+          {NAV.map((n) => (
+            <a key={n.href} href={n.href} onClick={() => setOpen(false)}>
+              {n.label}
+            </a>
+          ))}
+          <a className="ch-btn ch-btn-primary" href={site.donateUrl} onClick={() => setOpen(false)}>
+            Donate Now
+          </a>
+        </div>
+      )}
     </header>
   );
 }

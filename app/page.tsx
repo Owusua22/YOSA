@@ -1,387 +1,514 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import Image from "next/image";
+import { Header } from "./Header";
+import { HeroSlider } from "./HeroSlider";
+import { GiftWidget } from "./GiftWidget";
+import EnquiryForm from "./EnquiryForm";
+import { Counter, Reveal } from "./fx";
+import { Icon, Socials } from "./icons";
 import {
-  site,
-  photos,
-  photoAlt,
+  factors,
   gallery,
-  reach,
   impact,
   impactSource,
   measure,
-  pyd,
-  factors,
-  pillars,
   partnerWays,
-  testimonials,
+  photoAlt,
+  photos,
+  pillars,
+  pyd,
+  quotes,
+  reach,
   resources,
+  site,
+  testimonials,
 } from "./content";
-import EnquiryForm from "./EnquiryForm";
-import Header from "./Header";
-import { Icon, Socials } from "./icons";
-import { Reveal, Counter } from "./fx";
 
-const SectionHead = ({ index, title, lead }: { index: string; title: string; lead?: string }) => (
-  <Reveal className="secHead">
-    <div>
-      <p className="meta">{index}</p>
-      <h2>{title}</h2>
-    </div>
-    {lead && <p className="lead">{lead}</p>}
-  </Reveal>
-);
+const HERO_SLIDES = [
+  {
+    src: photos.hero,
+    alt: photoAlt.hero,
+    eyebrow: "Youth Opportunities South Africa · Since 2016",
+    title: "Empowering Young People, Strengthening Communities",
+    lead: "We walk alongside learners in under-resourced South African schools with academic support, life skills, and community care.",
+  },
+  {
+    src: "/photos/programme-learning.jpg",
+    alt: "YOSA learners engaged in classroom learning support",
+    eyebrow: "Learning Support · After-School & Digital Labs",
+    title: "Building Confidence in Every Classroom",
+    lead: "From literacy and numeracy to digital labs and career pathways, we help learners stay in school and thrive.",
+  },
+  {
+    src: "/photos/programme-community.jpg",
+    alt: "YOSA community outreach with learners and families",
+    eyebrow: "Community Outreach · Families & Schools",
+    title: "Lasting Change Starts Around the Child",
+    lead: "We partner with families, schools, and local leaders to create safe, supportive environments for young people.",
+  },
+];
 
-const ext = site.donateUrl.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {};
-const initials = (name: string) =>
-  name
-    .replace(/^(Dr|Mr|Mrs|Ms|Prof)\.?\s+/i, "")
-    .split(/[\s,]+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? "")
-    .join("");
+const FEATURE_STRIP = [
+  { icon: "book" as const, title: "Learning Support", sub: "Tutoring, literacy & digital labs" },
+  { icon: "heart" as const, title: "Life Skills & Care", sub: "Psychosocial & health education" },
+  { icon: "users" as const, title: "Community Outreach", sub: "Families & child-headed homes" },
+  { icon: "cap" as const, title: "Career Pathways", sub: "160+ university acceptances" },
+];
 
 export default function Home() {
-  const hasPdf = fs.existsSync(path.join(process.cwd(), "public", site.pdf));
-  const Pdf = ({ cls }: { cls: string }) => hasPdf ? <a className={cls} href={site.pdf} download>Download the partner brief (PDF)</a> : null;
+  const hasPdf = fs.existsSync(path.join(process.cwd(), "public", "YOSA-Partner-Brief.pdf"));
 
   return (
     <>
-      <a className="skip" href="#main">Skip to content</a>
-      {process.env.NODE_ENV !== "production" && <p className="draft">Draft — wording, figures and two testimonials await YOSA approval.</p>}
-      <Header social={site.social} donateUrl={site.donateUrl} />
+      <a className="skip" href="#main">
+        Skip to content
+      </a>
+      <Header />
 
       <main id="main">
-        {/* ————— Hero ————— */}
-        <section id="top" className="hero">
-          <figure className="heroFig">
-            <Image src={photos.hero} alt={photoAlt.hero} fill priority sizes="100vw" />
-          </figure>
-          <div className="wrap heroBody">
-            <div className="heroGrid">
-              <Reveal>
-                <p className="meta">Youth Opportunities South Africa · Soweto</p>
-                <h1>
-                  Empowering the future of South Africa
-                  <span>Unlocking the potential of South African youth</span>
-                </h1>
-              </Reveal>
-              <Reveal delay={120} className="heroAside">
-                <p>We work inside Soweto schools, where change can be measured, supported and sustained — through learning support, psychosocial services and digital innovation.</p>
-                <div className="actions">
-                  <a className="btn" href="#get-in-touch">Partner with YOSA</a>
-                  <a className="link" href={site.donateUrl} {...ext}>Donate<Icon name="arrow" size={16} /></a>
+        {/* 1. Charitics-style Hero Slider */}
+        <HeroSlider slides={HERO_SLIDES} donateUrl={site.donateUrl} />
+
+        {/* 2. 4-Column Feature Strip */}
+        <section className="ch-strip" aria-label="Core focus areas">
+          <div className="ch-wrap ch-strip-grid">
+            {FEATURE_STRIP.map((f) => (
+              <div key={f.title} className="ch-strip-card">
+                <div className="ch-strip-icon">
+                  <Icon name={f.icon} size={24} />
                 </div>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
-        {/* ————— Reach ————— */}
-        <section className="reach" aria-label="YOSA reach in numbers">
-          <div className="wrap">
-            <div className="metrics">
-              {reach.items.map((r) => (
-                <div className="metric" key={r.l}>
-                  <b><Counter to={r.n} suffix={r.suffix} /></b>
-                  <span>{r.l}</span>
+                <div>
+                  <h3>{f.title}</h3>
+                  <p>{f.sub}</p>
                 </div>
-              ))}
-            </div>
-            <p className="fine">{reach.note}</p>
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* ————— About ————— */}
-        <section id="about" className="rule">
-          <div className="wrap split">
-            <Reveal>
-              <p className="meta">01 — About</p>
-              <h2>Creating ripples of impact that transform communities</h2>
-              <p>YOSA delivers sustained, measurable improvements in learner wellbeing and academic performance across participating Soweto schools.</p>
-              <p>In communities facing high levels of teenage pregnancy, substance abuse and school dropout, we provide structured, evidence-based intervention directly within the school environment, where change can be measured, supported and sustained. Through integrated academic support, in-school psychosocial services and digital innovation, we strengthen learners, families, educators and entire school ecosystems.</p>
-              <p className="marked"><Icon name="check" size={16} /> Recognised by the Department of Education</p>
-            </Reveal>
-            <Reveal delay={120}>
-              <figure className="fig">
-                <Image src={photos.careers} alt={photoAlt.careers} width={1400} height={1400} sizes="(max-width: 860px) 100vw, 30rem" />
-                <figcaption>YOSA learners on an exposure visit beyond the classroom.</figcaption>
-              </figure>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ————— What we do ————— */}
-        <section id="programmes" className="rule">
-          <div className="wrap">
-            <SectionHead
-              index="02 — Programmes"
-              title="What we do"
-              lead="One Positive Youth Development programme, delivered in three areas. Component lists are descriptive, not links; each area opens in conversation with the school."
-            />
-            <div className="areas">
-              {pyd.map((p, i) => (
-                <Reveal key={p.key} delay={i * 90} className="area">
-                  <p className="meta">{String(i + 1).padStart(2, "0")}</p>
-                  <h3>{p.label}</h3>
-                  <ul>{p.items.map((item) => <li key={item}>{item}</li>)}</ul>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ————— Approach ————— */}
-        <section id="approach" className="rule">
-          <div className="wrap split splitTop">
-            <Reveal>
-              <p className="meta">03 — Approach</p>
-              <h2>How we create community transformation</h2>
-              <p>Our programmes are rooted in the internationally recognised Positive Youth Development framework, strengthening six core protective factors. By building these capacities within schools, we reduce high-risk behaviours while improving academic resilience, emotional stability and long-term life outcomes.</p>
-              <ul className="factors">
-                {factors.map((f) => <li key={f}>{f}</li>)}
+        {/* 3. Dual Action Cards (Become a Partner / Send a Gift) */}
+        <section className="ch-sec ch-dual-sec">
+          <div className="ch-wrap ch-dual-grid">
+            <Reveal className="ch-dual-card ch-dual-light">
+              <span className="ch-eyebrow">Get Involved</span>
+              <h2>Partner With YOSA</h2>
+              <p>
+                Every contribution strengthens our after-school learning labs, psychosocial care, and family support across partner schools.
+              </p>
+              <ul className="ch-check-list">
+                <li>
+                  <Icon name="check" size={16} /> Fund a learner&apos;s annual learning &amp; life-skills kit
+                </li>
+                <li>
+                  <Icon name="check" size={16} /> Sponsor digital lab equipment or transport
+                </li>
+                <li>
+                  <Icon name="check" size={16} /> Mentor learners into tertiary &amp; career pathways
+                </li>
               </ul>
+              <a className="ch-btn ch-btn-dark" href="#contact">
+                Become a Partner <Icon name="arrow" size={16} />
+              </a>
             </Reveal>
-            <Reveal delay={120} className="modelWrap">
-              <svg className="model" viewBox="0 0 420 420" role="img" aria-label="Young people at the centre, surrounded by families, then schools, then the wider community">
-                <g fill="none" stroke="var(--line)" strokeWidth="1">
-                  <circle cx="210" cy="210" r="196" />
-                  <circle cx="210" cy="210" r="148" />
-                  <circle cx="210" cy="210" r="100" />
-                </g>
-                <circle cx="210" cy="210" r="52" fill="var(--ink)" />
-                <g fill="var(--ink)" fontSize="11" fontWeight="500" letterSpacing="1.6" textAnchor="middle">
-                  <text x="210" y="34">COMMUNITY</text>
-                  <text x="210" y="82">SCHOOLS</text>
-                  <text x="210" y="130">FAMILIES</text>
-                </g>
-                <g fill="#fbfaf7" fontSize="12" fontWeight="500" textAnchor="middle">
-                  <text x="210" y="206">YOUNG</text>
-                  <text x="210" y="222">PEOPLE</text>
-                </g>
+
+            <Reveal className="ch-dual-card ch-dual-accent" delay={90}>
+              <span className="ch-eyebrow ch-eyebrow-light">Direct Support</span>
+              <h2>Send a Gift For Learners</h2>
+              <p>
+                Choose an amount to support tutoring, counselling, and daily care for learners in under-resourced communities.
+              </p>
+              <GiftWidget donateUrl={site.donateUrl} />
+            </Reveal>
+          </div>
+        </section>
+
+        {/* 4. About Us Split Section */}
+        <section id="about" className="ch-sec ch-bg-soft">
+          <div className="ch-wrap ch-about-grid">
+            <Reveal className="ch-about-media">
+              <div className="ch-about-img-wrap">
+                <Image
+                  src={photos.team}
+                  alt={photoAlt.team}
+                  width={900}
+                  height={720}
+                  style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                />
+                <div className="ch-exp-badge">
+                  <strong>10+</strong>
+                  <span>Years of Community Impact</span>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal className="ch-about-copy" delay={80}>
+              <span className="ch-eyebrow">About Us</span>
+              <h2>We Believe Every Young Person Deserves a Fair Start.</h2>
+              <p>
+                Youth Opportunities South Africa (YOSA) is a registered non-profit organisation working directly inside under-resourced schools and communities. We combine academic support, psychosocial care, and family partnership so young people can stay in school and build independent futures.
+              </p>
+
+              <div className="ch-mv-grid">
+                <div className="ch-mv-item">
+                  <div className="ch-mv-icon">
+                    <Icon name="shield" size={22} />
+                  </div>
+                  <div>
+                    <h3>Our Mission</h3>
+                    <p>To equip learners with education, life skills, and holistic care.</p>
+                  </div>
+                </div>
+                <div className="ch-mv-item">
+                  <div className="ch-mv-icon">
+                    <Icon name="users" size={22} />
+                  </div>
+                  <div>
+                    <h3>Our Vision</h3>
+                    <p>Thriving communities where every young person can flourish.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="ch-about-metrics">
+                {reach.items.slice(0, 4).map((r) => (
+                  <div key={r.l} className="ch-mini-stat">
+                    <strong>
+                      <Counter to={r.n} suffix={r.suffix} />
+                    </strong>
+                    <span>{r.l}</span>
+                  </div>
+                ))}
+              </div>
+
+              <a className="ch-btn ch-btn-primary" href="#programmes">
+                Explore Programmes <Icon name="arrow" size={16} />
+              </a>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* 5. Our Programmes (Services-style Cards with non-clickable components) */}
+        <section id="programmes" className="ch-sec">
+          <div className="ch-wrap">
+            <div className="ch-sec-head">
+              <span className="ch-eyebrow">What We Do</span>
+              <h2>Our Non-Profit Programmes</h2>
+              <p>Structured, school-based and community-anchored support delivered alongside educators and families.</p>
+            </div>
+
+            <div className="ch-prog-grid">
+              {pillars.map((p, idx) => {
+                const progImg =
+                  p.key === "learning"
+                    ? "/photos/programme-learning.jpg"
+                    : p.key === "life"
+                    ? "/photos/programme-life-skills.jpg"
+                    : "/photos/programme-community.jpg";
+                return (
+                  <Reveal key={p.key} className="ch-prog-card" delay={idx * 70}>
+                    <div className="ch-prog-img">
+                      <Image
+                        src={progImg}
+                        alt={p.title}
+                        width={800}
+                        height={540}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    </div>
+                    <div className="ch-prog-body">
+                      <h3>{p.title}</h3>
+                      <p>{p.intro}</p>
+                      <ul className="ch-prog-items" aria-label={`${p.title} components`}>
+                        {p.fns.map(([fnTitle, fnDesc]) => (
+                          <li key={fnTitle}>
+                            <strong>{fnTitle}:</strong> {fnDesc}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* 6. Community Transformation Approach + Bullseye + Delivery */}
+        <section id="approach" className="ch-sec ch-bg-soft">
+          <div className="ch-wrap ch-approach-grid">
+            <Reveal className="ch-approach-copy">
+              <span className="ch-eyebrow">How We Work</span>
+              <h2>Community Transformation Around the Young Person</h2>
+              <p>
+                Lasting change happens when the systems around a learner work together. Our model places young people at the centre, surrounded by families, schools, and the wider community.
+              </p>
+
+              <div className="ch-pyd-list">
+                {pyd.map((item) => (
+                  <div key={item.key} className="ch-pyd-row">
+                    <strong>{item.label}</strong>
+                    <p>{item.items.join(" · ")}</p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+
+            <Reveal className="ch-bullseye-wrap" delay={90}>
+              <svg
+                viewBox="0 0 420 420"
+                className="ch-bullseye"
+                role="img"
+                aria-label="Community transformation model: Young people at the centre, surrounded by Families, Schools, and Community"
+              >
+                <circle cx="210" cy="210" r="196" fill="#ffffff" stroke="#e4e0d6" strokeWidth="1.5" />
+                <circle cx="210" cy="210" r="148" fill="#fdf6f2" stroke="#f0c8b8" strokeWidth="1.5" />
+                <circle cx="210" cy="210" r="100" fill="#fbe8df" stroke="#e8a48a" strokeWidth="1.5" />
+                <circle cx="210" cy="210" r="54" fill="#eb5310" />
+                <text x="210" y="34" textAnchor="middle" className="ch-ring-lbl">
+                  COMMUNITY
+                </text>
+                <text x="210" y="82" textAnchor="middle" className="ch-ring-lbl">
+                  SCHOOLS
+                </text>
+                <text x="210" y="130" textAnchor="middle" className="ch-ring-lbl">
+                  FAMILIES
+                </text>
+                <text x="210" y="206" textAnchor="middle" className="ch-ring-core">
+                  YOUNG
+                </text>
+                <text x="210" y="224" textAnchor="middle" className="ch-ring-core">
+                  PEOPLE
+                </text>
               </svg>
             </Reveal>
           </div>
-        </section>
 
-        {/* ————— Model ————— */}
-        <section id="model" className="rule">
-          <div className="wrap">
-            <SectionHead
-              index="04 — Delivery"
-              title="Our model in action"
-              lead="Three embedded pillars, delivered by trained facilitators with consistent programming and rigorous measurement."
-            />
-            <div className="rows">
-              {pillars.map((p, i) => (
-                <Reveal key={p.key} delay={i * 60} className="row">
-                  <div className="rowLead">
-                    <p className="meta">{String(i + 1).padStart(2, "0")} — {p.label}</p>
-                    <h3>{p.title}</h3>
-                    <p>{p.intro}</p>
-                  </div>
-                  <div className="rowBody">
-                    <div className="fns">
-                      {p.fns.map(([t, d]) => (
-                        <div className="fn" key={t}>
-                          <b>{t}</b>
-                          <span>{d}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="why"><strong>Why this matters.</strong> {p.why}</p>
-                  </div>
-                </Reveal>
+          <div className="ch-wrap ch-factors-wrap">
+            <div className="ch-factors-grid">
+              {factors.map((f) => (
+                <div key={f} className="ch-factor-card">
+                  <h3>{f}</h3>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ————— Impact ————— */}
-        <section id="impact" className="rule">
-          <div className="wrap">
-            <SectionHead
-              index="05 — Impact"
-              title="Measured impact. Proven change."
-              lead="Change tracked across participating partner schools."
-            />
-            <div className="impactGrid">
-              <div className="stats">
-                {impact.map((s) => (
-                  <Reveal key={s.label} className="stat">
-                    <p className="num">
-                      {s.text ?? (s.from !== undefined
-                        ? <><Counter to={s.from} /><em>→</em><Counter to={s.to!} /></>
-                        : <><Counter to={s.num!} /><em>{s.suffix}</em></>)}
-                    </p>
-                    <div>
-                      <h3>{s.label}</h3>
-                      {s.from !== undefined && s.to !== undefined && <p className="years">{s.fromYear} — {s.toYear}</p>}
-                      <p>{s.note}</p>
+        {/* 7. Impact & Measurement */}
+        <section id="impact" className="ch-sec">
+          <div className="ch-wrap ch-impact-grid">
+            <Reveal className="ch-impact-copy">
+              <span className="ch-eyebrow">Measurable Impact</span>
+              <h2>Real Outcomes Across Partner Schools</h2>
+              <p className="ch-impact-source">{impactSource}</p>
+
+              <div className="ch-impact-stats">
+                {impact.map((row) => (
+                  <div key={row.label} className="ch-impact-card">
+                    <div className="ch-impact-num">
+                      {"from" in row && row.from !== undefined && row.to !== undefined ? (
+                        <>
+                          <Counter to={Number(row.from)} /> <em>→</em> <Counter to={Number(row.to)} />
+                        </>
+                      ) : "n" in row && row.n !== undefined ? (
+                        <Counter to={Number(row.n)} suffix={row.suffix} />
+                      ) : (
+                        <span>{row.text}</span>
+                      )}
                     </div>
-                  </Reveal>
+                    <div className="ch-impact-label">{row.label}</div>
+                    {row.note && <div className="ch-impact-note">{row.note}</div>}
+                  </div>
                 ))}
               </div>
-              <Reveal delay={120}>
-                <figure className="fig figTall">
-                  <Image src={photos.impact} alt={photoAlt.impact} width={1000} height={1250} sizes="(max-width: 900px) 100vw, 22rem" />
-                </figure>
-              </Reveal>
-            </div>
-            <div className="measure">
-              <p className="meta">How we measure</p>
-              <ol className="steps">{measure.map((m) => <li key={m}>{m}</li>)}</ol>
-            </div>
-            <p className="note">{impactSource}</p>
-            <div className="actions"><a className="link" href="#resources">Reports and publications<Icon name="arrow" size={16} /></a></div>
+
+              <div className="ch-measure-grid">
+                {measure.map((m, i) => (
+                  <div key={m} className="ch-measure-step">
+                    <span className="ch-step-num">0{i + 1}</span>
+                    <h4>{m}</h4>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+
+            <Reveal className="ch-impact-media" delay={90}>
+              <Image
+                src={photos.impact}
+                alt={photoAlt.impact}
+                width={800}
+                height={1000}
+                style={{ width: "100%", height: "auto", borderRadius: "20px", objectFit: "cover" }}
+              />
+            </Reveal>
           </div>
         </section>
 
-        {/* ————— Testimonials ————— */}
-        <section id="testimonials" className="rule">
-          <div className="wrap">
-            <SectionHead index="06 — In their words" title="The people closest to the work" />
-            <div className="quotes">
+        {/* 8. Full-Width CTA Banner */}
+        <section className="ch-cta-banner">
+          <div className="ch-wrap ch-cta-inner">
+            <div>
+              <span className="ch-eyebrow ch-eyebrow-light">Start Supporting Young People</span>
+              <h2>Learners Need Your Partnership Today</h2>
+            </div>
+            <a className="ch-btn ch-btn-primary" href="#contact">
+              Get In Touch <Icon name="arrow" size={16} />
+            </a>
+          </div>
+        </section>
+
+        {/* 9. Testimonials (What People Say About Us) */}
+        <section className="ch-sec ch-bg-soft">
+          <div className="ch-wrap ch-test-layout">
+            <div className="ch-test-summary">
+              <span className="ch-eyebrow">In Their Words</span>
+              <h2>What People Say About Us</h2>
+              <p>Voices from school leadership, our founder, and community partners.</p>
+              <div className="ch-rating-box">
+                <strong>10+</strong>
+                <span>Partner Schools</span>
+              </div>
+              <blockquote className="ch-pull-quote">
+                &ldquo;{testimonials[0].quote}&rdquo;
+                <footer>— {testimonials[0].by}</footer>
+              </blockquote>
+            </div>
+
+            <div className="ch-test-cards">
               {testimonials.map((t, i) => (
-                <Reveal key={t.by ?? `pending-${i}`} delay={i * 80} className="quote">
-                  {t.pending ? (
-                    <>
-                      <p className="quoteText muted">Reserved for a contributor testimonial.</p>
-                      <div className="byline">
-                        <span className="avatar" aria-hidden="true" />
-                        <div><b>{t.role}</b><span>Quote and portrait to be supplied by the YOSA team.</span></div>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <blockquote className="quoteText">“{t.quote}”</blockquote>
-                      <div className="byline">
-                        {t.photo
-                          ? <Image className="avatar" src={t.photo} alt={`Portrait of ${t.by}`} width={80} height={80} />
-                          : <span className="avatar" aria-hidden="true">{initials(t.by!)}</span>}
-                        <div><b>{t.by}</b><span>{t.role}</span></div>
-                      </div>
-                    </>
-                  )}
+                <Reveal key={i} className={`ch-test-card ${t.pending ? "is-pending" : ""}`} delay={i * 60}>
+                  <p className="ch-test-quote">&ldquo;{t.quote}&rdquo;</p>
+                  <div className="ch-test-author">
+                    <div className="ch-avatar">
+                      {!t.pending && t.by ? <span>{t.by.slice(0, 2).toUpperCase()}</span> : null}
+                    </div>
+                    <div>
+                      <strong>{t.by}</strong>
+                      <span>{t.role}</span>
+                    </div>
+                  </div>
                 </Reveal>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ————— Photographs ————— */}
-        <section id="photographs" className="rule">
-          <div className="wrap">
-            <SectionHead
-              index={`07 — Photographs (${gallery.items.length})`}
-              title={gallery.title}
-              lead={gallery.lead}
-            />
-            <div className="gallery">
-              {gallery.items.map((img, i) => (
-                <figure key={img.src + i}>
+        {/* 10. Contact Us Split Section */}
+        <section id="contact" className="ch-sec ch-contact-sec">
+          <div className="ch-wrap ch-contact-grid">
+            <Reveal className="ch-contact-media">
+              <Image
+                src={photos.careers}
+                alt={photoAlt.careers}
+                width={900}
+                height={760}
+                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }}
+              />
+            </Reveal>
+
+            <Reveal className="ch-contact-form-wrap" delay={80}>
+              <span className="ch-eyebrow">Contact Us</span>
+              <h2>Send Us a Message or Partner Enquiry</h2>
+              <p>
+                Whether you represent a school, a funding partner, or want to volunteer, our team in South Africa will respond directly.
+              </p>
+              <EnquiryForm email={site.email} />
+            </Reveal>
+          </div>
+        </section>
+
+        {/* 11. Resources & 35-Photo Gallery */}
+        <section id="photographs" className="ch-sec ch-bg-soft">
+          <div className="ch-wrap">
+            <div className="ch-sec-head">
+              <span className="ch-eyebrow">Resources &amp; Archive</span>
+              <h2>Reports, Newsletters &amp; Field Photographs ({gallery.items.length})</h2>
+              <p>{gallery.lead}</p>
+            </div>
+
+            <div className="ch-res-grid">
+              {resources.groups.map((r) => (
+                <a key={r.title} href={r.href} target="_blank" rel="noopener noreferrer" className="ch-res-card">
+                  <span className="ch-res-tag">{r.meta}</span>
+                  <h3>{r.title}</h3>
+                  <p>{r.desc}</p>
+                  <span className="ch-res-link">
+                    {r.cta} <Icon name="arrow" size={14} />
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            <div className="ch-gallery">
+              {gallery.items.map((item) => (
+                <figure key={item.src} className="ch-gallery-item">
                   <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={1200}
-                    height={900}
+                    src={item.src}
+                    alt={item.alt}
+                    width={800}
+                    height={600}
                     sizes="(max-width: 620px) 100vw, (max-width: 980px) 50vw, 33vw"
-                    style={{ width: "100%", height: "auto" }}
+                    style={{ width: "100%", height: "auto", display: "block" }}
                   />
                 </figure>
               ))}
             </div>
-            <p className="fine">Photographs supplied by YOSA. The archive includes near-identical frames from the same events; duplicates are retained so no image is lost.</p>
-          </div>
-        </section>
 
-        {/* ————— Resources ————— */}
-        <section id="resources" className="rule">
-          <div className="wrap">
-            <SectionHead index="08 — Resources" title="Reports, newsletters and gallery" lead={resources.intro} />
-            <div className="split splitTop">
-              <div>
-                <ul className="plain">
-                  {resources.inside.map((r) => <li key={r}>{r}</li>)}
-                </ul>
-                <p className="note">{resources.note}</p>
-              </div>
-              <div className="rows tight">
-                {resources.groups.map((g) => (
-                  <a className="rowLink" key={g.key} href={g.href} target="_blank" rel="noopener noreferrer">
-                    <span>
-                      <b>{g.title}</b>
-                      <em>{g.meta}</em>
-                    </span>
-                    <Icon name="arrow" size={18} />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ————— Support ————— */}
-        <section id="get-involved" className="rule">
-          <div className="wrap">
-            <SectionHead
-              index="09 — Support"
-              title="Help us reach the next school"
-              lead="Real schools. Real change. Your organisation can help create more opportunities for young people."
-            />
-            <figure className="fig figWide">
-              <Image src={photos.team} alt={photoAlt.team} width={1200} height={800} sizes="100vw" />
-              <figcaption>YOSA’s team and partners with learners at a partner school in Soweto.</figcaption>
-            </figure>
-            <ol className="ways">
-              {partnerWays.map(([t, d], i) => (
-                <Reveal key={t} delay={i * 60} className="way">
-                  <span className="meta">{String(i + 1).padStart(2, "0")}</span>
-                  <div><h3>{t}</h3><p>{d}</p></div>
-                </Reveal>
+            <div className="ch-partner-ways">
+              {partnerWays.map(([wTitle, wBody]) => (
+                <div key={wTitle} className="ch-way-pill">
+                  <strong>{wTitle}</strong>
+                  <span>{wBody}</span>
+                </div>
               ))}
-            </ol>
-            <div className="actions">
-              <a className="btn" href="#get-in-touch">Start a conversation</a>
-              <Pdf cls="link" />
-            </div>
-          </div>
-        </section>
-
-        {/* ————— Contact ————— */}
-        <section id="get-in-touch" className="ink">
-          <div className="wrap">
-            <div className="secHead">
-              <div>
-                <p className="meta">10 — Contact</p>
-                <h2>Start a partnership conversation</h2>
-              </div>
-              <p className="lead">Whether your organisation can contribute funding, skills, technology, transport or pathways into work, we would welcome a conversation about what we could achieve together.</p>
-            </div>
-            <div className="contactGrid">
-              <EnquiryForm email={site.email} />
-              <div className="contactInfo">
-                <p className="meta">Visit</p>
-                <p>{site.address}</p>
-                <p className="meta">Contact</p>
-                <p><a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
-                <Socials items={site.social} className="soc" />
-              </div>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="foot ink">
-        <div className="wrap footIn">
-          <Image className="footLogo" src="/brand/yosa-logo-white.svg" alt="YOSA — Youth Opportunities South Africa" width={549} height={327} />
-          <div className="footLinks">
-            <a href={site.links.board} target="_blank" rel="noopener noreferrer">Board of Governors</a>
-            <a href={site.links.privacy} target="_blank" rel="noopener noreferrer">Data privacy</a>
-            <a href="#resources">Resources</a>
+      {/* Footer */}
+      <footer className="ch-footer">
+        <div className="ch-wrap ch-footer-grid">
+          <div className="ch-footer-brand">
+            <img src="/brand/yosa-logo-white.svg" alt="YOSA" height={42} />
+            <p>
+              Youth Opportunities South Africa — empowering learners in under-resourced schools through education, life skills, and community care.
+            </p>
+            <Socials items={site.social} />
           </div>
-          <p className="fine">Registration number {site.reg}<br />© 2026 Youth Opportunities South Africa</p>
+
+          <div>
+            <h4>Quick Links</h4>
+            <ul className="ch-foot-links">
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#programmes">Programmes</a></li>
+              <li><a href="#approach">Our Approach</a></li>
+              <li><a href="#impact">Impact</a></li>
+              <li><a href="#photographs">Photographs</a></li>
+              {hasPdf && (
+                <li>
+                  <a href="/YOSA-Partner-Brief.pdf" download>
+                    Partner Brief (PDF)
+                  </a>
+                </li>
+              )}
+            </ul>
+          </div>
+
+          <div>
+            <h4>Contact</h4>
+            <ul className="ch-foot-links">
+              <li>{site.phone}</li>
+              <li>{site.email}</li>
+              <li>{site.address}</li>
+              <li>Reg: {site.reg}</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="ch-wrap ch-footer-bottom">
+          <span>© {new Date().getFullYear()} Youth Opportunities South Africa (YOSA). All rights reserved.</span>
         </div>
       </footer>
     </>
