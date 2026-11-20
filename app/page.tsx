@@ -123,67 +123,92 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 4. About Us Split Section */}
-        <section id="about" className="ch-sec ch-bg-soft">
+        {/* 4. About Us Split Section (Exact Charitics Heart-Collage Design) */}
+        <section id="about" className="ch-sec ch-about-v2">
           <div className="ch-wrap ch-about-grid">
             <Reveal className="ch-about-media">
-              <div className="ch-about-img-wrap">
-                <Image
-                  src={photos.team}
-                  alt={photoAlt.team}
-                  width={900}
-                  height={720}
-                  style={{ width: "100%", height: "auto", objectFit: "cover" }}
-                />
-                <div className="ch-exp-badge">
-                  <strong>10+</strong>
-                  <span>Years of Community Impact</span>
-                </div>
+              <div className="ch-heart-collage">
+                <svg viewBox="0 0 520 480" className="ch-heart-svg" role="img" aria-label={photoAlt.team}>
+                  <defs>
+                    <clipPath id="yosa-heart-clip">
+                      <path d="M260,452 C260,452 24,310 24,158 C24,78 86,20 162,20 C208,20 244,44 260,78 C276,44 312,20 358,20 C434,20 496,78 496,158 C496,310 260,452 260,452 Z" />
+                    </clipPath>
+                    <clipPath id="yosa-circle-clip">
+                      <circle cx="145" cy="145" r="76" />
+                    </clipPath>
+                  </defs>
+
+                  {/* Soft peach splash behind bottom-left */}
+                  <ellipse cx="110" cy="360" rx="95" ry="62" transform="rotate(-24 110 360)" fill="#f8b49b" opacity="0.55" />
+
+                  {/* Main heart-clipped YOSA photo */}
+                  <image
+                    href={photos.team}
+                    x="0"
+                    y="0"
+                    width="520"
+                    height="480"
+                    preserveAspectRatio="xMidYMid slice"
+                    clipPath="url(#yosa-heart-clip)"
+                  />
+
+                  {/* Orange ring + circular inset photo */}
+                  <circle cx="145" cy="145" r="88" fill="#eb5310" />
+                  <image
+                    href="/photos/library/img-1384.jpg"
+                    x="69"
+                    y="69"
+                    width="152"
+                    height="152"
+                    preserveAspectRatio="xMidYMid slice"
+                    clipPath="url(#yosa-circle-clip)"
+                  />
+
+                  {/* Orange 10+ Years badge on upper-right lobe */}
+                  <rect x="292" y="54" width="164" height="96" rx="48" fill="#eb5310" />
+                  <text x="374" y="100" textAnchor="middle" fill="#ffffff" fontSize="34" fontWeight="800">
+                    10+
+                  </text>
+                  <text x="374" y="126" textAnchor="middle" fill="#ffffff" fontSize="13" fontWeight="600">
+                    Years Of Impact
+                  </text>
+                </svg>
               </div>
             </Reveal>
 
             <Reveal className="ch-about-copy" delay={80}>
-              <span className="ch-eyebrow">About Us</span>
-              <h2>We Believe Every Young Person Deserves a Fair Start.</h2>
+              <span className="ch-eyebrow">♥ About US</span>
+              <h2>Helping Each Other Can Make World Better</h2>
               <p>
-                Youth Opportunities South Africa (YOSA) is a registered non-profit organisation working directly inside under-resourced schools and communities. We combine academic support, psychosocial care, and family partnership so young people can stay in school and build independent futures.
+                Youth Opportunities South Africa (YOSA) is a registered non-profit organisation working directly inside under-resourced schools and communities. We combine academic support, psychosocial care, and family partnership so young people can stay in school and thrive.
               </p>
 
-              <div className="ch-mv-grid">
-                <div className="ch-mv-item">
-                  <div className="ch-mv-icon">
-                    <Icon name="shield" size={22} />
+              <div className="ch-about-team-row">
+                <div>
+                  <div className="ch-team-title">
+                    <span className="ch-team-icon">
+                      <Icon name="users" size={20} />
+                    </span>
+                    <strong>Start Helping Team</strong>
                   </div>
-                  <div>
-                    <h3>Our Mission</h3>
-                    <p>To equip learners with education, life skills, and holistic care.</p>
-                  </div>
-                </div>
-                <div className="ch-mv-item">
-                  <div className="ch-mv-icon">
-                    <Icon name="users" size={22} />
-                  </div>
-                  <div>
-                    <h3>Our Vision</h3>
-                    <p>Thriving communities where every young person can flourish.</p>
+                  <div className="ch-team-check">
+                    <Icon name="check" size={15} /> Supporting 7,000+ learners across 10 schools
                   </div>
                 </div>
-              </div>
-
-              <div className="ch-about-metrics">
-                {reach.items.slice(0, 4).map((r) => (
-                  <div key={r.l} className="ch-mini-stat">
-                    <strong>
-                      <Counter to={r.n} suffix={r.suffix} />
-                    </strong>
-                    <span>{r.l}</span>
-                  </div>
-                ))}
+                <div className="ch-team-pill-img">
+                  <Image
+                    src="/photos/library/img-1593.jpg"
+                    alt="YOSA facilitators and learners"
+                    width={220}
+                    height={64}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
               </div>
 
               <div className="ch-about-actions">
                 <a className="ch-btn ch-btn-primary" href="#programmes">
-                  Explore Programmes <Icon name="arrow" size={16} />
+                  Explore More <Icon name="arrow" size={16} />
                 </a>
                 <a className="ch-call-pill" href={`tel:${site.phone.replace(/\s+/g, "")}`}>
                   <span className="ch-call-icon">
