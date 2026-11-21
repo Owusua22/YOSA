@@ -206,7 +206,7 @@ export default function Home() {
               {pillars.map((p, idx) => {
                 const progImg =
                   p.key === "learning"
-                    ? "/photos/library/img-1611.jpg"
+                    ? "/photos/library/img-20260701-wa0025.jpg"
                     : p.key === "life"
                     ? "/photos/library/img-1405.jpg"
                     : "/photos/library/img-1692.jpg";
@@ -248,11 +248,25 @@ export default function Home() {
                       <h3>{p.title}</h3>
                       <p>{p.intro}</p>
                       <ul className="ch-prog-items" aria-label={`${p.title} components`}>
-                        {p.fns.map(([fnTitle, fnDesc]) => (
-                          <li key={fnTitle}>
-                            <strong>{fnTitle}:</strong> {fnDesc}
-                          </li>
-                        ))}
+                        {p.fns.map(([fnTitle, fnDesc], fIdx) => {
+                          const iconNames =
+                            p.key === "learning"
+                              ? (["book", "monitor", "cap"] as const)
+                              : p.key === "life"
+                              ? (["heart", "chat", "shield"] as const)
+                              : (["users", "school", "heart"] as const);
+                          const iconName = iconNames[fIdx % iconNames.length];
+                          return (
+                            <li key={fnTitle} className="ch-prog-item-row">
+                              <span className="ch-prog-item-icon" aria-hidden="true">
+                                <Icon name={iconName} size={16} />
+                              </span>
+                              <span>
+                                <strong>{fnTitle}:</strong> {fnDesc}
+                              </span>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </div>
                   </Reveal>
