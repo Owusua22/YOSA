@@ -87,43 +87,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 3. Dual Action Cards (Become a Partner / Send a Gift) */}
-        <section className="ch-sec ch-dual-sec">
-          <div className="ch-wrap ch-dual-grid">
-            <Reveal className="ch-dual-card ch-dual-light">
-              <span className="ch-eyebrow">Get Involved</span>
-              <h2>Partner With YOSA</h2>
-              <p>
-                Every contribution strengthens our after-school learning labs, psychosocial care, and family support across partner schools.
-              </p>
-              <ul className="ch-check-list">
-                <li>
-                  <Icon name="check" size={16} /> Fund a learner&apos;s annual learning &amp; life-skills kit
-                </li>
-                <li>
-                  <Icon name="check" size={16} /> Sponsor digital lab equipment or transport
-                </li>
-                <li>
-                  <Icon name="check" size={16} /> Mentor learners into tertiary &amp; career pathways
-                </li>
-              </ul>
-              <a className="ch-btn ch-btn-dark" href="#contact">
-                Become a Partner <Icon name="arrow" size={16} />
-              </a>
-            </Reveal>
-
-            <Reveal className="ch-dual-card ch-dual-accent" delay={90}>
-              <span className="ch-eyebrow ch-eyebrow-light">Direct Support</span>
-              <h2>Send a Gift For Learners</h2>
-              <p>
-                Choose an amount to support tutoring, counselling, and daily care for learners in under-resourced communities.
-              </p>
-              <GiftWidget donateUrl={site.donateUrl} />
-            </Reveal>
-          </div>
-        </section>
-
-        {/* 4. About Us Split Section (Exact Charitics Heart-Collage Design) */}
+        {/* 3. About Us Split Section (Exact Charitics Heart-Collage Design) */}
         <section id="about" className="ch-sec ch-about-v2">
           <div className="ch-wrap ch-about-grid">
             <Reveal className="ch-about-media">
@@ -322,10 +286,21 @@ export default function Home() {
               </p>
 
               <div className="ch-pyd-list">
-                {pyd.map((item) => (
-                  <div key={item.key} className="ch-pyd-row">
-                    <strong>{item.label}</strong>
-                    <p>{item.items.join(" · ")}</p>
+                {pyd.map((item, idx) => (
+                  <div key={item.key} className="ch-pyd-row ch-pyd-visual">
+                    <div className="ch-pyd-icon">
+                      <Icon name={idx === 0 ? "book" : "heart"} size={22} />
+                    </div>
+                    <div>
+                      <strong>{item.label}</strong>
+                      <div className="ch-pyd-tags">
+                        {item.items.map((sub) => (
+                          <span key={sub} className="ch-pyd-tag">
+                            {sub}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -369,6 +344,42 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* 6b. Dual Action Cards (Moved below How We Work) */}
+        <section className="ch-sec ch-dual-sec">
+          <div className="ch-wrap ch-dual-grid">
+            <Reveal className="ch-dual-card ch-dual-light">
+              <span className="ch-eyebrow">Get Involved</span>
+              <h2>Partner With YOSA</h2>
+              <p>
+                Every contribution strengthens our after-school learning labs, psychosocial care, and family support across partner schools.
+              </p>
+              <ul className="ch-check-list">
+                <li>
+                  <Icon name="check" size={16} /> Fund a learner&apos;s annual learning &amp; life-skills kit
+                </li>
+                <li>
+                  <Icon name="check" size={16} /> Sponsor digital lab equipment or transport
+                </li>
+                <li>
+                  <Icon name="check" size={16} /> Mentor learners into tertiary &amp; career pathways
+                </li>
+              </ul>
+              <a className="ch-btn ch-btn-dark" href="#contact">
+                Become a Partner <Icon name="arrow" size={16} />
+              </a>
+            </Reveal>
+
+            <Reveal className="ch-dual-card ch-dual-accent" delay={90}>
+              <span className="ch-eyebrow ch-eyebrow-light">Direct Support</span>
+              <h2>Send a Gift For Learners</h2>
+              <p>
+                Choose an amount to support tutoring, counselling, and daily care for learners in under-resourced communities.
+              </p>
+              <GiftWidget donateUrl={site.donateUrl} />
+            </Reveal>
           </div>
         </section>
 
@@ -455,9 +466,13 @@ export default function Home() {
             <div className="ch-test-cards">
               {testimonials.map((t, i) => (
                 <Reveal key={i} className={`ch-test-card ${t.pending ? "is-pending" : ""}`} delay={i * 60}>
+                  <div className="ch-test-top">
+                    <span className="ch-stars" aria-label="5 out of 5 stars">★★★★★</span>
+                    <span className="ch-quote-mark" aria-hidden="true">&ldquo;</span>
+                  </div>
                   <p className="ch-test-quote">&ldquo;{t.quote}&rdquo;</p>
                   <div className="ch-test-author">
-                    <div className="ch-avatar">
+                    <div className="ch-avatar ch-avatar-ring">
                       {!t.pending && t.by ? <span>{t.by.slice(0, 2).toUpperCase()}</span> : null}
                     </div>
                     <div>

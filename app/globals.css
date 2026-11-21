@@ -873,6 +873,57 @@ a {
   font-size: 0.9rem;
   color: var(--ink-muted);
 }
+.ch-pyd-visual {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  border-left: 4px solid var(--accent);
+}
+.ch-pyd-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #fdf0ea;
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.ch-pyd-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.ch-pyd-tag {
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--ink);
+}
+.ch-test-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ch-stars {
+  color: var(--accent);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+}
+.ch-quote-mark {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  line-height: 1;
+  color: rgba(235, 83, 16, 0.25);
+}
+.ch-avatar-ring {
+  border: 2px solid var(--accent);
+}
+
 .ch-bullseye {
   width: 100%;
   max-width: 400px;
