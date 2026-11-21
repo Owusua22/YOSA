@@ -217,13 +217,25 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 5. Our Programmes (Services-style Cards with non-clickable components) */}
-        <section id="programmes" className="ch-sec">
+        {/* 5. What We Do — Highly Visual Charitics Causes Cards */}
+        <section id="programmes" className="ch-sec ch-bg-soft">
           <div className="ch-wrap">
-            <div className="ch-sec-head">
-              <span className="ch-eyebrow">What We Do</span>
-              <h2>Our Non-Profit Programmes</h2>
-              <p>Structured, school-based and community-anchored support delivered alongside educators and families.</p>
+            <div className="ch-causes-head">
+              <div>
+                <span className="ch-eyebrow">♥ What We Do</span>
+                <h2>Inspiring and Helping for Better Futures</h2>
+              </div>
+              <div className="ch-avatar-stack ch-avatar-dark">
+                <div className="ch-avatars">
+                  <Image src="/photos/library/img-1384.jpg" alt="" width={40} height={40} />
+                  <Image src="/photos/library/img-1388.jpg" alt="" width={40} height={40} />
+                  <Image src="/photos/library/img-1390.jpg" alt="" width={40} height={40} />
+                </div>
+                <div>
+                  <strong>7,000+</strong>
+                  <span>Learners Reached</span>
+                </div>
+              </div>
             </div>
 
             <div className="ch-prog-grid">
@@ -244,8 +256,18 @@ export default function Home() {
                         height={540}
                         style={{ width: "100%", height: "100%", objectFit: "cover" }}
                       />
+                      <span className="ch-prog-badge">{p.label}</span>
                     </div>
                     <div className="ch-prog-body">
+                      <div className="ch-prog-meter">
+                        <div className="ch-meter-bar">
+                          <span style={{ width: idx === 0 ? "92%" : idx === 1 ? "88%" : "85%" }} />
+                        </div>
+                        <div className="ch-meter-meta">
+                          <span>Active in 10 Schools</span>
+                          <strong>Pillar 0{idx + 1}</strong>
+                        </div>
+                      </div>
                       <h3>{p.title}</h3>
                       <p>{p.intro}</p>
                       <ul className="ch-prog-items" aria-label={`${p.title} components`}>
@@ -260,6 +282,32 @@ export default function Home() {
                 );
               })}
             </div>
+          </div>
+        </section>
+
+        {/* 5b. Custom Donate Now Split Banner + 2x2 Stat Grid (Charitics index.html) */}
+        <section className="ch-donate-split">
+          <div className="ch-wrap ch-donate-split-grid">
+            <Reveal className="ch-donate-box">
+              <span className="ch-eyebrow ch-eyebrow-light">♥ Custom Donate Now</span>
+              <h3>Support a Learner Today</h3>
+              <GiftWidget donateUrl={site.donateUrl} />
+            </Reveal>
+
+            <Reveal className="ch-donate-stats" delay={80}>
+              <span className="ch-eyebrow ch-eyebrow-light">Donate Now</span>
+              <h2>Support Learners by Raising Valuable Donations</h2>
+              <div className="ch-stat-2x2">
+                {reach.items.slice(0, 4).map((r) => (
+                  <div key={r.l} className="ch-stat-tile">
+                    <strong>
+                      <Counter to={r.n} suffix={r.suffix} />
+                    </strong>
+                    <span>{r.l}</span>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
           </div>
         </section>
 

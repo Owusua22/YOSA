@@ -677,6 +677,123 @@ a {
   color: var(--ink-muted);
 }
 
+/* Causes / What We Do Header & Visual Cards */
+.ch-causes-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.ch-causes-head h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  margin: 0;
+  line-height: 1.2;
+}
+.ch-avatar-dark strong {
+  color: var(--ink);
+}
+.ch-avatar-dark span {
+  color: var(--ink-muted);
+}
+.ch-avatar-dark .ch-avatars img {
+  border-color: #fff;
+}
+.ch-prog-img {
+  position: relative;
+  height: 230px;
+  overflow: hidden;
+}
+.ch-prog-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.ch-prog-meter {
+  margin-bottom: 16px;
+}
+.ch-meter-bar {
+  height: 7px;
+  background: #f0ece6;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.ch-meter-bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+}
+.ch-meter-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+.ch-meter-meta strong {
+  color: var(--ink);
+}
+
+/* Custom Donate Split Banner */
+.ch-donate-split {
+  background: linear-gradient(135deg, #121216 0%, #1d1d26 100%);
+  color: #fff;
+  padding: 72px 0;
+}
+.ch-donate-split-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 44px;
+  align-items: center;
+}
+.ch-donate-box {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  padding: 36px 32px;
+}
+.ch-donate-box h3 {
+  margin: 0 0 20px;
+  font-size: 1.55rem;
+}
+.ch-donate-stats h2 {
+  margin: 0 0 28px;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  line-height: 1.2;
+}
+.ch-stat-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.ch-stat-tile {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 20px 22px;
+}
+.ch-stat-tile strong {
+  display: block;
+  font-size: 1.85rem;
+  color: var(--accent);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.ch-stat-tile span {
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 /* Programmes */
 .ch-prog-grid {
   display: grid;
@@ -1179,6 +1296,7 @@ a {
     grid-template-columns: repeat(2, 1fr);
   }
   .ch-hero-v2-grid,
+  .ch-donate-split-grid,
   .ch-dual-grid,
   .ch-about-grid,
   .ch-approach-grid,
