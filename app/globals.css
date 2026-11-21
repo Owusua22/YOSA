@@ -717,6 +717,17 @@ a {
   height: 230px;
   overflow: hidden;
 }
+.ch-prog-mini-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  background: #fff;
+  padding: 3px 3px 0;
+}
+.ch-prog-mini {
+  height: 68px;
+  overflow: hidden;
+}
 .ch-prog-badge {
   position: absolute;
   top: 16px;

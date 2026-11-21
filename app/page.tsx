@@ -206,10 +206,16 @@ export default function Home() {
               {pillars.map((p, idx) => {
                 const progImg =
                   p.key === "learning"
-                    ? "/photos/programme-learning.jpg"
+                    ? "/photos/library/img-1611.jpg"
                     : p.key === "life"
-                    ? "/photos/programme-life-skills.jpg"
-                    : "/photos/programme-community.jpg";
+                    ? "/photos/library/img-1405.jpg"
+                    : "/photos/library/img-1692.jpg";
+                const miniImgs =
+                  p.key === "learning"
+                    ? ["/photos/library/img-1557.jpg", "/photos/library/img-1561.jpg", "/photos/library/img-1563.jpg"]
+                    : p.key === "life"
+                    ? ["/photos/library/img-1573.jpg", "/photos/library/img-1586.jpg", "/photos/library/img-1590.jpg"]
+                    : ["/photos/library/img-1693.jpg", "/photos/library/img-1694.jpg", "/photos/library/img-1699.jpg"];
                 return (
                   <Reveal key={p.key} className="ch-prog-card" delay={idx * 70}>
                     <div className="ch-prog-img">
@@ -221,6 +227,13 @@ export default function Home() {
                         style={{ width: "100%", height: "100%", objectFit: "cover" }}
                       />
                       <span className="ch-prog-badge">{p.label}</span>
+                    </div>
+                    <div className="ch-prog-mini-strip">
+                      {miniImgs.map((mSrc) => (
+                        <div key={mSrc} className="ch-prog-mini">
+                          <Image src={mSrc} alt="" width={160} height={100} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        </div>
+                      ))}
                     </div>
                     <div className="ch-prog-body">
                       <div className="ch-prog-meter">
