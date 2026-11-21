@@ -187,7 +187,7 @@ export default function Home() {
             <div className="ch-causes-head">
               <div>
                 <span className="ch-eyebrow">♥ What We Do</span>
-                <h2>Inspiring and Helping for Better Futures</h2>
+                <h2>Our Core Programmes</h2>
               </div>
               <div className="ch-avatar-stack ch-avatar-dark">
                 <div className="ch-avatars">
@@ -437,8 +437,8 @@ export default function Home() {
         <section className="ch-cta-banner">
           <div className="ch-wrap ch-cta-inner">
             <div>
-              <span className="ch-eyebrow ch-eyebrow-light">Start Supporting Young People</span>
-              <h2>Learners Need Your Partnership Today</h2>
+              <span className="ch-eyebrow ch-eyebrow-light">Partner With YOSA</span>
+              <h2>Walk Alongside Young People in South Africa</h2>
             </div>
             <a className="ch-btn ch-btn-primary" href="#contact">
               Get In Touch <Icon name="arrow" size={16} />
