@@ -517,19 +517,10 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="ch-gallery">
-              {gallery.items.map((item) => (
-                <figure key={item.src} className="ch-gallery-item">
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    width={800}
-                    height={600}
-                    sizes="(max-width: 620px) 100vw, (max-width: 980px) 50vw, 33vw"
-                    style={{ width: "100%", height: "auto", display: "block" }}
-                  />
-                </figure>
-              ))}
+            <div style={{ textAlign: "center", marginTop: "8px" }}>
+              <a className="ch-btn ch-btn-primary" href="/gallery">
+                View All {gallery.items.length} Field Photographs <Icon name="arrow" size={16} />
+              </a>
             </div>
 
             <div className="ch-partner-ways">

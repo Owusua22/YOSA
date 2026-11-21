@@ -3,12 +3,12 @@ import { useState } from "react";
 import { site } from "./content";
 
 const NAV = [
-  { href: "#about", label: "About" },
-  { href: "#programmes", label: "Programmes" },
-  { href: "#approach", label: "Approach" },
-  { href: "#impact", label: "Impact" },
-  { href: "#photographs", label: "Photographs" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#programmes", label: "Programmes" },
+  { href: "/#approach", label: "Approach" },
+  { href: "/#impact", label: "Impact" },
+  { href: "/gallery", label: "Photographs" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Header() {
