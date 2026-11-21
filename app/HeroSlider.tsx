@@ -47,27 +47,6 @@ export function HeroSlider({ slides, donateUrl }: { slides: Slide[]; donateUrl: 
           </div>
         </div>
 
-        <div className="ch-hero-thumbs" aria-label="Slide controls">
-          <button type="button" className="ch-thumb-arrow" onClick={prev} aria-label="Previous slide">
-            ←
-          </button>
-          <div className="ch-thumb-list">
-            {slides.map((s, i) => (
-              <button
-                key={s.src}
-                type="button"
-                className={`ch-thumb ${i === idx ? "active" : ""}`}
-                onClick={() => setIdx(i)}
-                aria-label={`Show slide ${i + 1}`}
-              >
-                <Image src={s.src} alt="" width={84} height={56} style={{ objectFit: "cover" }} />
-              </button>
-            ))}
-          </div>
-          <button type="button" className="ch-thumb-arrow" onClick={next} aria-label="Next slide">
-            →
-          </button>
-        </div>
       </div>
     </section>
   );
