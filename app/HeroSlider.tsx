@@ -15,20 +15,33 @@ export function HeroSlider({ slides, donateUrl }: { slides: Slide[]; donateUrl: 
   const [idx, setIdx] = useState(0);
   const current = slides[idx];
 
-  const prev = () => setIdx((i) => (i - 1 + slides.length) % slides.length);
-  const next = () => setIdx((i) => (i + 1) % slides.length);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIdx((i) => (i + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, [slides.length]);
 
   return (
     <section className="ch-hero" aria-label="Featured YOSA programmes">
       <div className="ch-hero-bg">
-        <Image
-          src={current.src}
-          alt={current.alt}
-          fill
-          priority
-          sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "center 30%" }}
-        />
+        <div
+          className="ch-hero-track"
+          style={{ transform: `translateX(-${idx * 100}%)` }}
+        >
+          {slides.map((s, i) => (
+            <div key={s.src} className="ch-hero-slide">
+              <Image
+                src={s.src}
+                alt={s.alt}
+                fill
+                priority={i === 0}
+                sizes="100vw"
+                style={{ objectFit: "cover", objectPosition: "center 30%" }}
+              />
+            </div>
+          ))}
+        </div>
         <div className="ch-hero-scrim" />
       </div>
 
@@ -46,7 +59,6 @@ export function HeroSlider({ slides, donateUrl }: { slides: Slide[]; donateUrl: 
             </a>
           </div>
         </div>
-
       </div>
     </section>
   );
