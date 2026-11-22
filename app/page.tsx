@@ -276,10 +276,16 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 5b. Donate Now 4-Circle Stats Banner */}
+        {/* 5b. Custom Donate Now Split Banner + 2x2 Stat Grid (Charitics index.html) */}
         <section className="ch-donate-split">
-          <div className="ch-wrap">
-            <Reveal className="ch-donate-stats">
+          <div className="ch-wrap ch-donate-split-grid">
+            <Reveal className="ch-donate-box">
+              <span className="ch-eyebrow ch-eyebrow-light">♥ Custom Donate Now</span>
+              <h3>Support a Learner Today</h3>
+              <GiftWidget donateUrl={site.donateUrl} />
+            </Reveal>
+
+            <Reveal className="ch-donate-stats" delay={80}>
               <span className="ch-eyebrow ch-eyebrow-light">Donate Now</span>
               <h2>Support Learners by Raising Valuable Donations</h2>
               <div className="ch-circle-stats">
