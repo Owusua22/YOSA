@@ -794,27 +794,70 @@ a {
   font-size: clamp(1.7rem, 3vw, 2.3rem);
   line-height: 1.2;
 }
-.ch-stat-2x2 {
+.ch-circle-stats {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
-.ch-stat-tile {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 20px 22px;
+.ch-circle-stat {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 18px;
+  cursor: default;
+  transition: border-color 0.3s ease, transform 0.3s ease;
 }
-.ch-stat-tile strong {
-  display: block;
-  font-size: 1.85rem;
-  color: var(--accent);
+.ch-circle-stat:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+.ch-circle-bg {
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.5s ease;
+  transform: scale(1.06);
+}
+.ch-circle-stat:hover .ch-circle-bg {
+  opacity: 1;
+  transform: scale(1);
+}
+.ch-circle-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 22, 0.62);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.ch-circle-stat:hover .ch-circle-scrim {
+  opacity: 1;
+}
+.ch-circle-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+.ch-circle-content svg {
+  color: #fff;
+}
+.ch-circle-content strong {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #fff;
   line-height: 1.1;
-  margin-bottom: 4px;
 }
-.ch-stat-tile span {
-  font-size: 0.86rem;
+.ch-circle-content span {
+  font-size: 0.78rem;
   color: rgba(255, 255, 255, 0.8);
+  line-height: 1.3;
+  max-width: 140px;
 }
 
 /* Programmes */

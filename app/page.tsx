@@ -288,15 +288,35 @@ export default function Home() {
             <Reveal className="ch-donate-stats" delay={80}>
               <span className="ch-eyebrow ch-eyebrow-light">Donate Now</span>
               <h2>Support Learners by Raising Valuable Donations</h2>
-              <div className="ch-stat-2x2">
-                {reach.items.slice(0, 4).map((r) => (
-                  <div key={r.l} className="ch-stat-tile">
-                    <strong>
-                      <Counter to={r.n} suffix={r.suffix} />
-                    </strong>
-                    <span>{r.l}</span>
-                  </div>
-                ))}
+              <div className="ch-circle-stats">
+                {reach.items.slice(0, 4).map((r, idx) => {
+                  const circleIcons = ["users", "school", "heart", "shield"] as const;
+                  const circleImgs = [
+                    "/photos/library/img-1384.jpg",
+                    "/photos/library/img-1611.jpg",
+                    "/photos/library/img-1405.jpg",
+                    "/photos/library/img-1692.jpg",
+                  ];
+                  return (
+                    <div key={r.l} className="ch-circle-stat">
+                      <Image
+                        src={circleImgs[idx]}
+                        alt=""
+                        fill
+                        sizes="240px"
+                        className="ch-circle-bg"
+                      />
+                      <div className="ch-circle-scrim" />
+                      <div className="ch-circle-content">
+                        <Icon name={circleIcons[idx]} size={28} />
+                        <strong>
+                          <Counter to={r.n} suffix={r.suffix} />
+                        </strong>
+                        <span>{r.l}</span>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </Reveal>
           </div>
