@@ -206,7 +206,7 @@ export default function Home() {
               {pillars.map((p, idx) => {
                 const progImg =
                   p.key === "learning"
-                    ? "/photos/library/img-20260701-wa0025.jpg"
+                    ? "/photos/library/img-20260701-wa0027.jpg"
                     : p.key === "life"
                     ? "/photos/library/img-1405.jpg"
                     : "/photos/library/img-1692.jpg";
