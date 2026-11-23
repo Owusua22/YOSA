@@ -249,9 +249,9 @@ export default function Home() {
         <section id="home" className="relative overflow-hidden bg-ink text-white">
           <div className="relative mx-auto grid min-h-[760px] w-[91%] items-center lg:grid-cols-2">
             <div className="fade relative z-10 pb-14 pt-40 lg:py-48">
-              <div className="eyebrow text-[11px] tracking-[3px]">Youth Opportunities South Africa · Since 2015</div>
-              <h1 className="max-w-xl text-[clamp(42px,5vw,72px)] font-bold leading-[1.04] tracking-[-2px]">
-                For The Young People &amp; Cause You Care About
+              <div className="eyebrow text-[11px] tracking-[2px]">YOSA: Changing the world; one person at a time</div>
+              <h1 className="max-w-xl text-[clamp(40px,4.8vw,68px)] font-bold leading-[1.06] tracking-[-2px]">
+                Developing Young Change Agents. Creating Ripples of Impact.
               </h1>
               <p className="mb-8 mt-6 max-w-lg text-sm text-white/70">
                 YOSA applies a holistic Positive Youth Development model rooted in the 6C framework, Competence, Confidence, Connection, Character, Care and Contribution, to create lasting ripple effects within school communities.
