@@ -686,11 +686,19 @@ export default function Home() {
               <p className="mb-7 mt-5 text-sm text-gray-500">
                 Explore our annual reports, community newsletters, and {gallery.items.length} field photographs.
               </p>
+              <div className="mb-6">
+                <Button href="/gallery">View Our Impact Gallery</Button>
+              </div>
               <SliderArrows target={blogs} />
             </div>
             <div ref={blogs} className="scrollrow flex gap-5 overflow-x-auto pb-5">
               {resources.groups.map((r, idx) => {
-                const imgs = ['/photos/library/img-1561.jpg', '/photos/library/img-1586.jpg', '/photos/library/img-1694.jpg'];
+                const imgs = [
+                  '/photos/library/img-1561.jpg',
+                  '/photos/library/img-1586.jpg',
+                  '/photos/library/img-1694.jpg',
+                  '/photos/library/img-1703.jpg',
+                ];
                 return (
                   <article
                     key={r.title}

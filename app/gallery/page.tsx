@@ -27,8 +27,7 @@ export default function GalleryPage() {
         <section className="bg-ink py-16 text-white">
           <div className="wrap">
             <div className="eyebrow">Field Archive</div>
-            <h1 className="heading text-white">YOSA Photographs ({gallery.items.length})</h1>
-            <p className="mt-4 max-w-2xl text-sm text-white/70">{gallery.lead}</p>
+            <h1 className="heading text-white">YOSA Impact Gallery</h1>
           </div>
         </section>
 
@@ -47,8 +46,7 @@ export default function GalleryPage() {
                     loading="lazy"
                     className="w-full h-auto block transition duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 flex items-end justify-between bg-gradient-to-t from-black/65 via-transparent to-transparent p-4 opacity-0 transition group-hover:opacity-100">
-                    <span className="text-xs font-semibold text-white line-clamp-2">{item.alt}</span>
+                  <div className="absolute inset-0 flex items-end justify-end bg-gradient-to-t from-black/40 via-transparent to-transparent p-4 opacity-0 transition group-hover:opacity-100">
                     <span className="grid size-9 shrink-0 place-items-center rounded-full bg-orange text-white">
                       <ZoomIn size={16} />
                     </span>
@@ -81,7 +79,6 @@ export default function GalleryPage() {
               <X size={20} />
             </button>
             <img src={active.src} alt={active.alt} className="max-h-[82vh] w-auto rounded-2xl object-contain" />
-            <p className="mt-3 text-center text-xs text-white/80">{active.alt}</p>
           </div>
         </div>
       )}
