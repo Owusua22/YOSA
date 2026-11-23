@@ -1,8 +1,9 @@
 @import 'tailwindcss';
 @theme {
-  --color-orange: #eb5310;
-  --color-ink: #1e252f;
-  --color-cream: #fff9f4;
+  --color-orange: #F15822;
+  --color-ink: #332945;
+  --color-cream: #E0D4C5;
+  --color-pink: #EFBDBF;
   --font-sans: "Inter Variable", system-ui, -apple-system, sans-serif;
   --font-heading: "Inter Variable", system-ui, -apple-system, sans-serif;
 }
