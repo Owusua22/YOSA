@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect } from 'react';
 import {
   ArrowUpRight,
+  GraduationCap,
+  Award,
   ArrowRight,
   ArrowLeft,
   ChevronsRight,
@@ -478,8 +480,8 @@ export default function Home() {
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {[
-                ['01', 'Competence', 'Developing practical and academic skills', BookOpen],
-                ['02', 'Confidence', 'Strengthening belief in personal capability', Sparkles],
+                ['01', 'Competence', 'Developing practical and academic skills', GraduationCap],
+                ['02', 'Confidence', 'Strengthening belief in personal capability', Award],
                 ['03', 'Connection', 'Building healthy relationships with peers, educators, and family', Users],
                 ['04', 'Character', 'Reinforcing responsibility and integrity', ShieldCheck],
                 ['05', 'Care', 'Cultivating empathy and social awareness', Heart],
