@@ -250,7 +250,7 @@ export default function Home() {
           <div className="relative mx-auto grid min-h-[760px] w-[91%] items-center lg:grid-cols-2">
             <div className="fade relative z-10 pb-14 pt-40 lg:py-48">
               <div className="eyebrow text-[11px] tracking-[2px]">YOSA: Changing the world; one person at a time</div>
-              <h1 className="max-w-xl text-[clamp(40px,4.8vw,68px)] font-bold leading-[1.06] tracking-[-2px]">
+              <h1 className="max-w-xl text-[clamp(34px,4vw,54px)] font-bold leading-[1.1] tracking-[-1.5px]">
                 Developing Young Change Agents. Creating Ripples of Impact.
               </h1>
               <p className="mb-8 mt-6 max-w-lg text-sm text-white/70">
@@ -421,17 +421,20 @@ export default function Home() {
               </div>
               <div className="text-white">
                 <div className="eyebrow text-white">Partner Impact</div>
-                <h2 className="heading text-white">Support Learners by Raising Valuable Donations</h2>
-                <div className="mb-4 mt-12 h-1 rounded-full bg-white/30">
+                <h2 className="heading text-white">Support Learners by Partnering With Us</h2>
+                <div className="mb-4 mt-10 h-1 rounded-full bg-white/30">
                   <div className="relative h-full w-[78%] bg-white">
                     <span className="absolute -right-3 -top-7 text-xs font-bold">78%</span>
                     <span className="absolute -right-1 -top-1 size-3 rounded-full border-[3px] border-white bg-orange" />
                   </div>
                 </div>
-                <div className="flex justify-between text-xs font-semibold">
+                <div className="mb-8 flex justify-between text-xs font-semibold">
                   <span>160+ University Acceptances</span>
                   <span>10 Partner Schools</span>
                 </div>
+                <Button href="#contact" light>
+                  Partner With Us
+                </Button>
               </div>
             </div>
           </div>
@@ -457,6 +460,80 @@ export default function Home() {
             ))}
           </div>
         </div>
+
+        {/* 5b. The YOSA Model & 6C Framework */}
+        <section id="model" className="section bg-white">
+          <div className="wrap">
+            <div className="mx-auto mb-12 max-w-2xl text-center">
+              <div className="flex justify-center">
+                <span className="eyebrow">The YOSA Model &amp; 6C Framework</span>
+              </div>
+              <h2 className="heading">YOSA: How the Model Works in Practice</h2>
+              <p className="mt-4 text-sm text-gray-600">
+                The model is guided by a structured developmental framework. Each stage reinforces the next. Change is developmental rather than reactive, creating sustained internal and external growth.
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                ['01', 'Competence', 'Developing practical and academic skills'],
+                ['02', 'Confidence', 'Strengthening belief in personal capability'],
+                ['03', 'Connection', 'Building healthy relationships with peers, educators, and family'],
+                ['04', 'Character', 'Reinforcing responsibility and integrity'],
+                ['05', 'Care', 'Cultivating empathy and social awareness'],
+                ['06', 'Contribution', 'Encouraging active participation in community wellbeing'],
+              ].map(([num, title, desc]) => (
+                <div key={title} className="rounded-2xl border border-black/10 bg-[#f7f7f9] p-6">
+                  <span className="text-xs font-extrabold text-orange">{num}</span>
+                  <h3 className="mt-2 text-lg font-bold text-ink">{title}</h3>
+                  <p className="mt-2 text-xs text-gray-600">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 5c. Why Our Model Works */}
+        <section id="why-model" className="section bg-[#f4f4f4]">
+          <div className="wrap">
+            <div className="mb-10 max-w-2xl">
+              <Title label="Why Our Model Works">Three Pillars, The 6Cs &amp; Focused Delivery</Title>
+            </div>
+            <div className="grid gap-6 lg:grid-cols-3">
+              <article className="rounded-2xl bg-white p-7 shadow-sm">
+                <span className="inline-block bg-orange px-3 py-1 text-[10px] font-bold text-white">01 · Three Pillars</span>
+                <h3 className="mt-4 text-xl font-bold text-ink">Three Pillars</h3>
+                <p className="mt-3 text-xs text-gray-600">
+                  YOSA&apos;s model is built on three integrated pillars: 1. Learning Support, 2. Psychosocial Support and 3. Digital Innovation, which together address both academic performance and the underlying factors that shape learner behaviour and opportunity.
+                </p>
+                <p className="mt-3 text-xs text-gray-600">
+                  The pillars work because they are interdependent: academic progress is reinforced by emotional stability, and both are strengthened by access to digital skills and opportunity.
+                </p>
+              </article>
+
+              <article className="rounded-2xl bg-white p-7 shadow-sm">
+                <span className="inline-block bg-orange px-3 py-1 text-[10px] font-bold text-white">02 · The Ripple Effect</span>
+                <h3 className="mt-4 text-xl font-bold text-ink">The 6C&apos;s Model: The Ripple Effect</h3>
+                <p className="mt-3 text-xs text-gray-600">
+                  The 6Cs model is a structured Positive Youth Development framework guiding young people through six interlinked stages: Competence, Confidence, Connection, Character, Care and Contribution.
+                </p>
+                <p className="mt-3 text-xs text-gray-600">
+                  It works because it follows a logical developmental progression, strengthening internal capacity before expecting external behaviour change and building protective factors such as identity, belonging, agency and purpose.
+                </p>
+              </article>
+
+              <article className="rounded-2xl bg-white p-7 shadow-sm">
+                <span className="inline-block bg-orange px-3 py-1 text-[10px] font-bold text-white">03 · Focused Delivery</span>
+                <h3 className="mt-4 text-xl font-bold text-ink">Focused Delivery</h3>
+                <p className="mt-3 text-xs text-gray-600">
+                  YOSA implements its model through long-term partnerships with a defined number of schools, learners, and families. Sustained change requires depth, consistency and accountability.
+                </p>
+                <p className="mt-3 text-xs text-gray-600">
+                  By concentrating resources within partner schools, YOSA builds strong relationships, maintains continuity, and strengthens institutional capacity within schools themselves.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
 
         {/* 6. Our Leadership & Governance (Board of Governors) */}
         <section id="leadership" className="section bg-[#f4f4f4]">
@@ -547,10 +624,10 @@ export default function Home() {
               </div>
               <h2 className="heading">What They Are Talking About YOSA</h2>
             </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {[0, 1, 2].map((n) => {
-                const t = testimonials[(n + test) % testimonials.length];
-                return (
+            <div className="grid gap-6 md:grid-cols-2">
+              {testimonials
+                .filter((t) => !t.pending)
+                .map((t, n) => (
                   <article key={n} className="rounded-xl bg-white p-7 shadow-sm">
                     <div className="mb-5 flex gap-1 text-amber-500">
                       {[0, 1, 2, 3, 4].map((i) => (
@@ -571,20 +648,7 @@ export default function Home() {
                       <Quote size={30} className="text-orange" />
                     </div>
                   </article>
-                );
-              })}
-            </div>
-            <div className="mt-9 flex justify-center gap-2">
-              {[0, 1, 2].map((i) => (
-                <button
-                  type="button"
-                  aria-label={`Testimonial group ${i + 1}`}
-                  aria-pressed={test === i}
-                  key={i}
-                  onClick={() => setTest(i)}
-                  className={`h-2.5 rounded-full ${test === i ? 'w-7 bg-orange' : 'w-2.5 bg-white'}`}
-                />
-              ))}
+                ))}
             </div>
           </div>
         </section>
@@ -667,7 +731,7 @@ export default function Home() {
         <section id="contact" className="section bg-[#f4f4f4]">
           <div className="wrap grid gap-12 lg:grid-cols-2">
             <div>
-              <Title label="Contact Us">Better yet, see us in person!</Title>
+              <Title label="Contact Us">Get in Touch</Title>
               <p className="mt-4 text-sm text-gray-600">
                 <strong>Mondays to Fridays</strong> · 09:00am to 5:00pm
               </p>
