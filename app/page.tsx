@@ -25,6 +25,9 @@ import {
   Share2,
   ExternalLink,
   MessageCircle,
+  BookOpen,
+  Sparkles,
+  ShieldCheck,
 } from 'lucide-react';
 import { site, pillars, testimonials, resources, gallery } from './content';
 
@@ -475,16 +478,21 @@ export default function Home() {
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {[
-                ['01', 'Competence', 'Developing practical and academic skills'],
-                ['02', 'Confidence', 'Strengthening belief in personal capability'],
-                ['03', 'Connection', 'Building healthy relationships with peers, educators, and family'],
-                ['04', 'Character', 'Reinforcing responsibility and integrity'],
-                ['05', 'Care', 'Cultivating empathy and social awareness'],
-                ['06', 'Contribution', 'Encouraging active participation in community wellbeing'],
-              ].map(([num, title, desc]) => (
-                <div key={title} className="rounded-2xl border border-black/10 bg-[#f7f7f9] p-6">
-                  <span className="text-xs font-extrabold text-orange">{num}</span>
-                  <h3 className="mt-2 text-lg font-bold text-ink">{title}</h3>
+                ['01', 'Competence', 'Developing practical and academic skills', BookOpen],
+                ['02', 'Confidence', 'Strengthening belief in personal capability', Sparkles],
+                ['03', 'Connection', 'Building healthy relationships with peers, educators, and family', Users],
+                ['04', 'Character', 'Reinforcing responsibility and integrity', ShieldCheck],
+                ['05', 'Care', 'Cultivating empathy and social awareness', Heart],
+                ['06', 'Contribution', 'Encouraging active participation in community wellbeing', HandHeart],
+              ].map(([num, title, desc, IconComp]: any) => (
+                <div key={title} className="group rounded-2xl border border-black/10 bg-[#f7f7f9] p-6 transition hover:-translate-y-1 hover:border-orange hover:bg-white hover:shadow-md">
+                  <div className="flex items-center justify-between">
+                    <span className="grid size-12 place-items-center rounded-2xl bg-orange text-white shadow-sm">
+                      <IconComp size={22} />
+                    </span>
+                    <span className="text-xs font-extrabold text-orange/60 group-hover:text-orange">{num}</span>
+                  </div>
+                  <h3 className="mt-4 text-lg font-bold text-ink">{title}</h3>
                   <p className="mt-2 text-xs text-gray-600">{desc}</p>
                 </div>
               ))}
@@ -499,37 +507,52 @@ export default function Home() {
               <Title label="Why Our Model Works">Three Pillars, The 6Cs &amp; Focused Delivery</Title>
             </div>
             <div className="grid gap-6 lg:grid-cols-3">
-              <article className="rounded-2xl bg-white p-7 shadow-sm">
-                <span className="inline-block bg-orange px-3 py-1 text-[10px] font-bold text-white">01 · Three Pillars</span>
-                <h3 className="mt-4 text-xl font-bold text-ink">Three Pillars</h3>
-                <p className="mt-3 text-xs text-gray-600">
-                  YOSA&apos;s model is built on three integrated pillars: 1. Learning Support, 2. Psychosocial Support and 3. Digital Innovation, which together address both academic performance and the underlying factors that shape learner behaviour and opportunity.
-                </p>
-                <p className="mt-3 text-xs text-gray-600">
-                  The pillars work because they are interdependent: academic progress is reinforced by emotional stability, and both are strengthened by access to digital skills and opportunity.
-                </p>
+              <article className="overflow-hidden rounded-2xl bg-white shadow-sm">
+                <div className="flex h-56 items-center justify-center bg-[#fff9f4] p-4">
+                  <img src="/photos/three-pillars.webp" alt="YOSA Three Pillars diagram" className="max-h-full w-auto object-contain" />
+                </div>
+                <div className="p-7">
+                  <span className="inline-block bg-orange px-3 py-1 text-[10px] font-bold text-white">01 · Three Pillars</span>
+                  <h3 className="mt-4 text-xl font-bold text-ink">Three Pillars</h3>
+                  <p className="mt-3 text-xs text-gray-600">
+                    YOSA&apos;s model is built on three integrated pillars: 1. Learning Support, 2. Psychosocial Support and 3. Digital Innovation, which together address both academic performance and the underlying factors that shape learner behaviour and opportunity.
+                  </p>
+                  <p className="mt-3 text-xs text-gray-600">
+                    The pillars work because they are interdependent: academic progress is reinforced by emotional stability, and both are strengthened by access to digital skills and opportunity.
+                  </p>
+                </div>
               </article>
 
-              <article className="rounded-2xl bg-white p-7 shadow-sm">
-                <span className="inline-block bg-orange px-3 py-1 text-[10px] font-bold text-white">02 · The Ripple Effect</span>
-                <h3 className="mt-4 text-xl font-bold text-ink">The 6C&apos;s Model: The Ripple Effect</h3>
-                <p className="mt-3 text-xs text-gray-600">
-                  The 6Cs model is a structured Positive Youth Development framework guiding young people through six interlinked stages: Competence, Confidence, Connection, Character, Care and Contribution.
-                </p>
-                <p className="mt-3 text-xs text-gray-600">
-                  It works because it follows a logical developmental progression, strengthening internal capacity before expecting external behaviour change and building protective factors such as identity, belonging, agency and purpose.
-                </p>
+              <article className="overflow-hidden rounded-2xl bg-white shadow-sm">
+                <div className="flex h-56 items-center justify-center bg-[#fff9f4] p-4">
+                  <img src="/photos/6c-model.webp" alt="YOSA 6C Model diagram" className="max-h-full w-auto object-contain" />
+                </div>
+                <div className="p-7">
+                  <span className="inline-block bg-orange px-3 py-1 text-[10px] font-bold text-white">02 · The Ripple Effect</span>
+                  <h3 className="mt-4 text-xl font-bold text-ink">The 6C&apos;s Model: The Ripple Effect</h3>
+                  <p className="mt-3 text-xs text-gray-600">
+                    The 6Cs model is a structured Positive Youth Development framework guiding young people through six interlinked stages: Competence, Confidence, Connection, Character, Care and Contribution.
+                  </p>
+                  <p className="mt-3 text-xs text-gray-600">
+                    It works because it follows a logical developmental progression, strengthening internal capacity before expecting external behaviour change and building protective factors such as identity, belonging, agency and purpose.
+                  </p>
+                </div>
               </article>
 
-              <article className="rounded-2xl bg-white p-7 shadow-sm">
-                <span className="inline-block bg-orange px-3 py-1 text-[10px] font-bold text-white">03 · Focused Delivery</span>
-                <h3 className="mt-4 text-xl font-bold text-ink">Focused Delivery</h3>
-                <p className="mt-3 text-xs text-gray-600">
-                  YOSA implements its model through long-term partnerships with a defined number of schools, learners, and families. Sustained change requires depth, consistency and accountability.
-                </p>
-                <p className="mt-3 text-xs text-gray-600">
-                  By concentrating resources within partner schools, YOSA builds strong relationships, maintains continuity, and strengthens institutional capacity within schools themselves.
-                </p>
+              <article className="overflow-hidden rounded-2xl bg-white shadow-sm">
+                <div className="h-56 overflow-hidden">
+                  <img src="/photos/library/img-1701.jpg" alt="YOSA focused delivery in partner schools" className="h-full w-full object-cover" />
+                </div>
+                <div className="p-7">
+                  <span className="inline-block bg-orange px-3 py-1 text-[10px] font-bold text-white">03 · Focused Delivery</span>
+                  <h3 className="mt-4 text-xl font-bold text-ink">Focused Delivery</h3>
+                  <p className="mt-3 text-xs text-gray-600">
+                    YOSA implements its model through long-term partnerships with a defined number of schools, learners, and families. Sustained change requires depth, consistency and accountability.
+                  </p>
+                  <p className="mt-3 text-xs text-gray-600">
+                    By concentrating resources within partner schools, YOSA builds strong relationships, maintains continuity, and strengthens institutional capacity within schools themselves.
+                  </p>
+                </div>
               </article>
             </div>
           </div>
