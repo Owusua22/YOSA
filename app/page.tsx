@@ -178,14 +178,13 @@ export default function Home() {
           <a href="#home" className="relative z-10 rounded-b-[42%] bg-white px-6 pb-6 pt-6">
             <img src="/brand/yosa-wordmark.svg" alt="YOSA home" className="w-36" />
           </a>
-          <nav className="hidden items-center gap-7 text-xs font-bold lg:flex">
-            {nav.map(([n, h]) => (
-              <a key={n} href={h} className="flex items-center gap-1.5 hover:text-orange">
-                {n}
-                {['Home', 'Programmes', 'Resources'].includes(n) && <ChevronDown size={11} />}
-              </a>
-            ))}
-          </nav>
+        <nav className="hidden items-center gap-7 text-xs font-bold lg:flex">
+  {nav.map(([n, h]) => (
+    <a key={n} href={h} className="flex items-center gap-1.5 hover:text-orange">
+      {n}
+    </a>
+  ))}
+</nav>
           <div className="flex items-center gap-5">
             <button type="button" aria-label="Open search" onClick={() => setSearch(true)}>
               <Search size={19} />
