@@ -254,7 +254,7 @@ export default function Home() {
                 For The Young People &amp; Cause You Care About
               </h1>
               <p className="mb-8 mt-6 max-w-lg text-sm text-white/70">
-                YOSA applies a holistic Positive Youth Development model rooted in the 6C framework — Competence, Confidence, Connection, Character, Care and Contribution — to create lasting ripple effects within school communities.
+                YOSA applies a holistic Positive Youth Development model rooted in the 6C framework, Competence, Confidence, Connection, Character, Care and Contribution, to create lasting ripple effects within school communities.
               </p>
               <div className="flex flex-wrap items-center gap-7">
                 <Button href="#contact">Partner With Us</Button>
@@ -372,39 +372,38 @@ export default function Home() {
               <SliderArrows target={donations} />
             </div>
             <div ref={donations} className="scrollrow flex gap-5 overflow-x-auto pb-3">
-              {CAUSES.map(([image, tag, title, desc, progress]) => (
-                <article
-                  key={image}
-                  className="group min-w-[285px] flex-1 rounded-[20px] border-[3px] border-transparent bg-white p-5 pb-0 hover:border-orange md:min-w-[calc((100%-40px)/3)]"
-                >
-                  <div className="relative mb-9">
-                    <img src={image} alt={title} className="aspect-[3/2] w-full rounded-xl object-cover" />
-                    <span className="absolute left-3 top-3 rounded-full bg-orange px-3 py-1 text-[10px] font-bold text-white">
-                      {tag}
-                    </span>
-                  </div>
-                  <div className="relative h-1 rounded-full bg-orange/15">
-                    <div style={{ width: progress + '%' }} className="relative h-full rounded-full bg-orange">
-                      <span className="absolute -right-3 -top-5 text-[10px] font-bold text-orange">{progress}%</span>
-                      <span className="absolute -right-1 -top-1 size-3 rounded-full border-[3px] border-orange bg-white" />
+              {pillars.map((p, idx) => {
+                const imgs = [
+                  '/photos/library/img-20260701-wa0027.jpg',
+                  '/photos/library/img-1405.jpg',
+                  '/photos/library/img-1692.jpg',
+                ];
+                return (
+                  <article
+                    key={p.key}
+                    className="min-w-[285px] flex-1 rounded-[20px] border border-black/10 bg-white p-5 md:min-w-[calc((100%-40px)/3)]"
+                  >
+                    <div className="relative mb-5">
+                      <img src={imgs[idx]} alt={p.title} className="aspect-[3/2] w-full rounded-xl object-cover" />
+                      <span className="absolute left-3 top-3 bg-orange px-3 py-1 text-[10px] font-bold text-white">
+                        {p.label}
+                      </span>
                     </div>
-                  </div>
-                  <div className="my-3 flex justify-between border-b border-black/10 pb-3 text-[10px]">
-                    <span>Active: 10 Schools</span>
-                    <span>Soweto, SA</span>
-                  </div>
-                  <h3 className="text-xl font-bold leading-tight">{title}</h3>
-                  <p className="mb-5 mt-3 text-xs text-gray-500">{desc}</p>
-                  <div className="text-center">
-                    <a
-                      href="#contact"
-                      className="inline-flex items-center gap-4 rounded-t-xl bg-ink px-5 py-3 text-xs font-bold text-white group-hover:bg-orange"
-                    >
-                      Partner With Us <ArrowUpRight size={16} />
-                    </a>
-                  </div>
-                </article>
-              ))}
+                    <h3 className="text-xl font-bold leading-tight">{p.title}</h3>
+                    <p className="mb-4 mt-2 text-xs text-gray-500">{p.intro}</p>
+                    <ul className="space-y-2" aria-label={`${p.title} components`}>
+                      {p.fns.map(([fnTitle]) => (
+                        <li
+                          key={fnTitle}
+                          className="border-l-4 border-orange bg-[#f7f7f9] px-3 py-2 text-xs font-semibold text-ink"
+                        >
+                          {fnTitle}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -528,7 +527,7 @@ export default function Home() {
                         {[
                           'Every contribution strengthens our after-school learning labs, psychosocial care, and family support across partner schools.',
                           'Help equip our 3 digital labs and support safe transport for learners attending weekend and holiday programmes.',
-                          'Connect learners with tertiary institutions, bursaries, and career mentors — contributing to 160+ university acceptances.',
+                          'Connect learners with tertiary institutions, bursaries, and career mentors, contributing to 160+ university acceptances.',
                         ][i]}
                       </p>
                     )}
@@ -627,9 +626,7 @@ export default function Home() {
                       </div>
                       <h3 className="border-b border-black/15 py-4 text-xl font-bold leading-tight">{r.title}</h3>
                       <a
-                        href={r.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="/newsletters"
                         className="mt-4 flex w-full items-center justify-between text-xs font-bold text-orange"
                       >
                         {r.cta} <ArrowRight size={17} />
@@ -778,7 +775,7 @@ export default function Home() {
           <div>
             <img src="/brand/yosa-logo-white.svg" alt="YOSA" className="mb-6 w-40" />
             <p className="mb-6 text-xs text-white/60">
-              Youth Opportunities South Africa — empowering learners in under-resourced schools through education, life skills, and community care.
+              Youth Opportunities South Africa, empowering learners in under-resourced schools through education, life skills, and community care.
             </p>
             <div className="flex gap-2">
               {[Globe, Share2, ExternalLink].map((IconComp, i) => (
