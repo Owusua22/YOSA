@@ -1,47 +1,58 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Header } from "../Header";
-import { Icon, Socials } from "../icons";
-import { gallery, site } from "../content";
-
-export const metadata = {
-  title: "Field Photographs — YOSA",
-  description: "Photographs of YOSA staff, learners, and community programmes across partner schools in South Africa.",
-};
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+import { ArrowLeft, X, ZoomIn } from 'lucide-react';
+import { gallery, site } from '../content';
 
 export default function GalleryPage() {
+  const [active, setActive] = useState<{ src: string; alt: string } | null>(null);
+
   return (
     <>
-      <Header />
-      <main id="main">
-        <section className="ch-donate-split" style={{ padding: "56px 0" }}>
-          <div className="ch-wrap">
-            <span className="ch-eyebrow ch-eyebrow-light">♥ Field Archive</span>
-            <h1 style={{ margin: "0 0 12px", fontSize: "clamp(2rem, 4vw, 3rem)" }}>
-              YOSA Photographs ({gallery.items.length})
-            </h1>
-            <p style={{ margin: "0 0 22px", maxWidth: "620px", color: "rgba(255,255,255,0.82)" }}>
-              {gallery.lead}
-            </p>
-            <Link className="ch-btn ch-btn-outline-light" href="/">
-              ← Back to Home
-            </Link>
+      <header className="bg-ink text-white">
+        <div className="wrap flex h-24 items-center justify-between gap-6">
+          <Link href="/" className="rounded-b-[42%] bg-white px-6 pb-5 pt-5">
+            <img src="/brand/yosa-wordmark.svg" alt="YOSA home" className="w-36" />
+          </Link>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 rounded-full bg-orange px-5 py-2.5 text-xs font-extrabold text-white transition hover:bg-orange/90"
+          >
+            <ArrowLeft size={15} /> Back to Home
+          </Link>
+        </div>
+      </header>
+
+      <main>
+        <section className="bg-ink py-16 text-white">
+          <div className="wrap">
+            <div className="eyebrow">Field Archive</div>
+            <h1 className="heading text-white">YOSA Photographs ({gallery.items.length})</h1>
+            <p className="mt-4 max-w-2xl text-sm text-white/70">{gallery.lead}</p>
           </div>
         </section>
 
-        <section className="ch-sec ch-bg-soft">
-          <div className="ch-wrap">
+        <section className="section bg-[#f4f4f4]">
+          <div className="wrap">
             <div className="ch-gallery">
               {gallery.items.map((item) => (
-                <figure key={item.src} className="ch-gallery-item">
-                  <Image
+                <figure
+                  key={item.src}
+                  className="ch-gallery-item group relative cursor-pointer overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                  onClick={() => setActive(item)}
+                >
+                  <img
                     src={item.src}
                     alt={item.alt}
-                    width={800}
-                    height={600}
-                    sizes="(max-width: 620px) 100vw, (max-width: 980px) 50vw, 33vw"
-                    style={{ width: "100%", height: "auto", display: "block" }}
+                    loading="lazy"
+                    className="w-full h-auto block transition duration-500 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 flex items-end justify-between bg-gradient-to-t from-black/65 via-transparent to-transparent p-4 opacity-0 transition group-hover:opacity-100">
+                    <span className="text-xs font-semibold text-white line-clamp-2">{item.alt}</span>
+                    <span className="grid size-9 shrink-0 place-items-center rounded-full bg-orange text-white">
+                      <ZoomIn size={16} />
+                    </span>
+                  </div>
                 </figure>
               ))}
             </div>
@@ -49,39 +60,31 @@ export default function GalleryPage() {
         </section>
       </main>
 
-      <footer className="ch-footer">
-        <div className="ch-wrap ch-footer-grid">
-          <div className="ch-footer-brand">
-            <img src="/brand/yosa-logo-white.svg" alt="YOSA" height={42} />
-            <p>
-              Youth Opportunities South Africa — empowering learners in under-resourced schools through education, life skills, and community care.
-            </p>
-            <Socials items={site.social} />
-          </div>
-          <div>
-            <h4>Quick Links</h4>
-            <ul className="ch-foot-links">
-              <li><Link href="/#about">About Us</Link></li>
-              <li><Link href="/#programmes">Programmes</Link></li>
-              <li><Link href="/#approach">Our Approach</Link></li>
-              <li><Link href="/#impact">Impact</Link></li>
-              <li><Link href="/#contact">Contact</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Contact</h4>
-            <ul className="ch-foot-links">
-              <li>{site.phone}</li>
-              <li>{site.email}</li>
-              <li>{site.address}</li>
-              <li>Reg: {site.reg}</li>
-            </ul>
-          </div>
-        </div>
-        <div className="ch-wrap ch-footer-bottom">
-          <span>© {new Date().getFullYear()} Youth Opportunities South Africa (YOSA). All rights reserved.</span>
+      <footer className="bg-ink py-10 text-center text-xs text-white/60">
+        <div className="wrap">
+          © {new Date().getFullYear()} Youth Opportunities South Africa (YOSA) · {site.address}
         </div>
       </footer>
+
+      {active && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-6 backdrop-blur-sm"
+          onClick={() => setActive(null)}
+        >
+          <div className="relative max-h-[90vh] max-w-4xl" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              aria-label="Close lightbox"
+              onClick={() => setActive(null)}
+              className="absolute -right-3 -top-3 grid size-10 place-items-center rounded-full bg-orange text-white shadow-lg"
+            >
+              <X size={20} />
+            </button>
+            <img src={active.src} alt={active.alt} className="max-h-[82vh] w-auto rounded-2xl object-contain" />
+            <p className="mt-3 text-center text-xs text-white/80">{active.alt}</p>
+          </div>
+        </div>
+      )}
     </>
   );
 }

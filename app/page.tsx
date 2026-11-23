@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   ArrowUpRight,
   ArrowRight,
@@ -18,19 +18,19 @@ import {
   HandHeart,
   Star,
   Quote,
-  Calendar,
   User,
   Tag,
   Check,
   Globe,
   Share2,
   ExternalLink,
+  MessageCircle,
 } from 'lucide-react';
-import { site, reach, pillars, testimonials, resources, gallery } from './content';
+import { site, pillars, testimonials, resources, gallery } from './content';
 
 function Button({
   children,
-  href = '#donate',
+  href = '#contact',
   onClick,
   light = false,
   className = '',
@@ -112,6 +112,13 @@ function SliderArrows({ target }: { target: React.RefObject<HTMLDivElement | nul
   );
 }
 
+const HERO_IMAGES = [
+  '/photos/hero.jpg',
+  '/photos/library/img-1611.jpg',
+  '/photos/library/img-1405.jpg',
+  '/photos/library/img-1692.jpg',
+];
+
 const CAUSES = [
   ['/photos/library/img-20260701-wa0027.jpg', 'Learning Support', pillars[0].title, pillars[0].intro, 92],
   ['/photos/library/img-1405.jpg', 'Life Skills', pillars[1].title, pillars[1].intro, 88],
@@ -119,25 +126,42 @@ const CAUSES = [
   ['/photos/library/img-1611.jpg', 'Digital Labs', '3 digital labs across Soweto schools', 'Equipping learners with digital literacy, coding basics, and career readiness.', 78],
 ] as const;
 
+const BOARD = [
+  { name: 'Dr Astonishment Mapurisa', role: 'YOSA Founder', initials: 'AM' },
+  { name: 'Prof Thobeka S Nkomo', role: 'Associate Professor of Social Work at University of the Witwatersrand', initials: 'TN' },
+  { name: 'Garth Smith', role: 'Executive Leader | Business Transformation | Technology | Financial Services', initials: 'GS' },
+  { name: 'Susy James', role: 'Former Qantas Airways staff member who is a long-time friend of YOSA', initials: 'SJ' },
+  { name: 'Brolin Castellino', role: 'Qantas Airline Pilot and Fintech Entrepreneur', initials: 'BC' },
+  { name: 'Jennifer van Oerle (Chairperson)', role: 'Chief Operating Officer, Discovery Invest', initials: 'JO' },
+  { name: 'Vusi Mashiloane', role: 'Board of Governors Member', initials: 'VM' },
+];
+
 export default function Home() {
+  const [heroIdx, setHeroIdx] = useState(0);
   const [mobile, setMobile] = useState(false);
   const [search, setSearch] = useState(false);
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(0);
-  const [amount, setAmount] = useState('300');
-  const [custom, setCustom] = useState('');
   const [notice, setNotice] = useState('');
   const [modal, setModal] = useState<{ title: string; text?: string; image?: string } | null>(null);
   const [test, setTest] = useState(0);
+  const [contactForm, setContactForm] = useState({ name: '', email: '', mobile: '' });
   const donations = useRef<HTMLDivElement | null>(null);
   const blogs = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setHeroIdx((i) => (i + 1) % HERO_IMAGES.length);
+    }, 4500);
+    return () => clearInterval(id);
+  }, []);
 
   const nav = [
     ['Home', '#home'],
     ['About', '#about'],
     ['Programmes', '#causes'],
+    ['Leadership', '#leadership'],
     ['Gallery', '/gallery'],
-    ['Events', '#events'],
     ['Resources', '#blog'],
     ['Contact', '#contact'],
   ];
@@ -161,7 +185,7 @@ export default function Home() {
             <button type="button" aria-label="Open search" onClick={() => setSearch(true)}>
               <Search size={19} />
             </button>
-            <Button href="#volunteer" className="hidden sm:inline-flex">
+            <Button href="#contact" className="hidden sm:inline-flex">
               Partner With Us
             </Button>
             <button type="button" className="lg:hidden" aria-label="Open navigation" onClick={() => setMobile(true)}>
@@ -221,45 +245,86 @@ export default function Home() {
       )}
 
       <main>
-        {/* 1. Hero Section */}
+        {/* 1. Hero Section with Auto-Sliding Carousel inside .hero-mask & Hands Background */}
         <section id="home" className="relative overflow-hidden bg-ink text-white">
           <div className="relative mx-auto grid min-h-[760px] w-[91%] items-center lg:grid-cols-2">
             <div className="fade relative z-10 pb-14 pt-40 lg:py-48">
-              <div className="eyebrow text-[11px] tracking-[3px]">Youth Opportunities South Africa · Since 2016</div>
+              <div className="eyebrow text-[11px] tracking-[3px]">Youth Opportunities South Africa · Since 2015</div>
               <h1 className="max-w-xl text-[clamp(42px,5vw,72px)] font-bold leading-[1.04] tracking-[-2px]">
                 For The Young People &amp; Cause You Care About
               </h1>
               <p className="mb-8 mt-6 max-w-lg text-sm text-white/70">
-                We walk alongside learners in under-resourced South African schools with academic support, life skills, and community care.
+                YOSA applies a holistic Positive Youth Development model rooted in the 6C framework — Competence, Confidence, Connection, Character, Care and Contribution — to create lasting ripple effects within school communities.
               </p>
               <div className="flex flex-wrap items-center gap-7">
-                <Button href="#donate">Make Donation</Button>
+                <Button href="#contact">Partner With Us</Button>
                 <Donors />
               </div>
+              <img
+                src="https://charitics.temptics.com/assets/img/vector-img.png"
+                alt=""
+                className="pointer-events-none absolute -bottom-14 left-8 w-[430px] opacity-40"
+              />
             </div>
+
             <div className="relative hidden h-full lg:block">
               <div className="absolute -right-[11vw] top-0 h-full w-[61vw] border-l-[7px] border-orange hero-mask overflow-hidden">
-                <img src="/photos/hero.jpg" alt="YOSA learners and facilitators" className="hero-mask h-full w-full" />
+                <div
+                  className="flex h-full w-full transition-transform duration-700 ease-out"
+                  style={{ transform: `translateX(-${heroIdx * 100}%)` }}
+                >
+                  {HERO_IMAGES.map((src) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt="YOSA learners and facilitators"
+                      className="h-full min-w-full object-cover object-top"
+                    />
+                  ))}
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-transparent to-ink/20" />
               </div>
             </div>
           </div>
         </section>
 
-        {/* 2. About Us */}
+        {/* 2. About Us with Heart-Shaped Photo Collage */}
         <section id="about" className="section">
           <div className="wrap grid items-center gap-14 md:grid-cols-2">
-            <div className="relative">
-              <img
-                src="/photos/team.jpg"
-                alt="YOSA team and learners"
-                className="relative z-10 w-full rounded-3xl object-cover shadow-lg aspect-[4/3]"
-              />
+            <div className="relative mx-auto w-full max-w-[520px]">
+              <svg viewBox="0 0 520 480" className="w-full h-auto block" role="img" aria-label="YOSA team and learners">
+                <defs>
+                  <clipPath id="yosa-heart-clip">
+                    <path d="M260,452 C260,452 24,310 24,158 C24,78 86,20 162,20 C208,20 244,44 260,78 C276,44 312,20 358,20 C434,20 496,78 496,158 C496,310 260,452 260,452 Z" />
+                  </clipPath>
+                </defs>
+                <ellipse cx="110" cy="360" rx="95" ry="62" transform="rotate(-24 110 360)" fill="#f8b49b" opacity="0.55" />
+                <image
+                  href="/photos/team.jpg"
+                  x="0"
+                  y="0"
+                  width="520"
+                  height="480"
+                  preserveAspectRatio="xMidYMid slice"
+                  clipPath="url(#yosa-heart-clip)"
+                />
+              </svg>
+              <div className="absolute -left-3 -top-3 size-32 overflow-hidden rounded-full border-[6px] border-orange bg-white shadow-xl">
+                <img src="/photos/library/img-1384.jpg" alt="YOSA learners" className="h-full w-full object-cover" />
+              </div>
+              <div className="absolute -right-2 bottom-4 flex items-center gap-2.5 rounded-full bg-orange px-5 py-3 text-white shadow-xl">
+                <strong className="text-2xl font-extrabold leading-none">10+</strong>
+                <span className="max-w-[82px] text-xs font-semibold leading-tight">Years Of Impact</span>
+              </div>
             </div>
+
             <div>
-              <Title label="About YOSA">Empowering Young People Across South Africa</Title>
-              <p className="mb-6 mt-5 text-sm text-gray-600">
-                Youth Opportunities South Africa (YOSA) is a non-profit organisation working in partnership with under-resourced schools, families, and communities to help young people stay in school, build life skills, and step into meaningful futures.
+              <Title label="Our Purpose & Approach">Cultivating School Communities Where Young People Thrive</Title>
+              <p className="mb-4 mt-5 text-sm text-gray-600">
+                YOSA exists to cultivate school communities where young people are equipped to realise their potential and become agents of positive change. By embedding psychosocial support, leadership development, academic enrichment and family engagement directly into partner schools and the YOSA Centre, we strengthen the environments that shape young people.
+              </p>
+              <p className="mb-6 text-sm text-gray-600">
+                <strong>The Challenge We Address:</strong> YOSA works in communities facing interconnected challenges including teenage pregnancy, substance abuse, limited academic participation, psychosocial vulnerability and the systemic pressures that perpetuate cycles of poverty.
               </p>
               <div className="mb-7 flex flex-wrap items-center gap-5">
                 <div>
@@ -267,24 +332,24 @@ export default function Home() {
                     <span className="grid size-11 place-items-center rounded-2xl bg-orange text-white">
                       <Heart />
                     </span>
-                    School &amp; Community Partnership
+                    The YOSA Model &amp; 6C Framework
                   </h3>
                   <p className="flex items-center gap-2 text-xs">
-                    <Check size={15} className="text-orange" /> Reaching 7,000+ learners across 10 Soweto schools
+                    <Check size={15} className="text-orange" /> Competence, Confidence, Connection, Character, Care &amp; Contribution
                   </p>
                 </div>
                 <img src="/photos/library/img-1593.jpg" className="h-16 w-48 rounded-full object-cover" alt="YOSA facilitators" />
               </div>
               <div className="flex flex-wrap items-center gap-7">
-                <Button href="#volunteer">Explore More</Button>
+                <Button href="#contact">Partner With Us</Button>
                 <div className="flex items-center gap-3">
                   <span className="grid size-11 place-items-center rounded-full border">
                     <Phone size={18} />
                   </span>
                   <div className="text-xs">
                     <p className="text-gray-500">Call Any Time</p>
-                    <a href={`tel:${site.phone.replace(/\s+/g, '')}`} className="font-extrabold">
-                      {site.phone}
+                    <a href="tel:+27630712093" className="font-extrabold">
+                      +27 63 071 2093
                     </a>
                   </div>
                 </div>
@@ -332,10 +397,10 @@ export default function Home() {
                   <p className="mb-5 mt-3 text-xs text-gray-500">{desc}</p>
                   <div className="text-center">
                     <a
-                      href="#donate"
+                      href="#contact"
                       className="inline-flex items-center gap-4 rounded-t-xl bg-ink px-5 py-3 text-xs font-bold text-white group-hover:bg-orange"
                     >
-                      Support programme <ArrowUpRight size={16} />
+                      Partner With Us <ArrowUpRight size={16} />
                     </a>
                   </div>
                 </article>
@@ -344,71 +409,27 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 4. Donate Now Banner */}
+        {/* 4. Support Learners Banner (Strictly Progress + Image, no Custom Donate Box) */}
         <section id="donate" className="section">
           <div className="wrap overflow-hidden rounded-3xl bg-orange p-6 md:p-10">
             <div className="grid items-center gap-10 md:grid-cols-2">
-              <form
-                className="rounded-2xl bg-ink p-7 text-white md:p-9"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const value = amount === 'custom' ? Number(custom) : Number(amount);
-                  if (!value || value <= 0) {
-                    setNotice('Please enter a donation amount greater than zero.');
-                    return;
-                  }
-                  setModal({
-                    title: 'Thank you for your generosity!',
-                    text: `You selected a R${value} contribution toward YOSA learners. Please contact ${site.email} to complete your partnership.`,
-                  });
-                }}
-              >
-                <h3 className="mb-6 text-2xl font-bold">Custom Donate Now</h3>
-                <div className="mb-6 flex flex-wrap gap-2">
-                  {['150', '300', '500', '1000', '2500'].map((v) => (
-                    <button
-                      type="button"
-                      aria-pressed={amount === v}
-                      key={v}
-                      onClick={() => setAmount(v)}
-                      className={`rounded-full px-5 py-2 text-xs font-bold ${
-                        amount === v ? 'bg-orange text-white' : 'bg-white text-ink'
-                      }`}
-                    >
-                      R{v}
-                    </button>
-                  ))}
-                </div>
-                <input
-                  type="number"
-                  min="1"
-                  step="1"
-                  value={custom}
-                  onChange={(e) => {
-                    setAmount('custom');
-                    setCustom(e.target.value);
-                  }}
-                  placeholder="Custom Amount (R)"
-                  aria-label="Custom donation amount in Rand"
-                  className="mb-5 w-full rounded-full border border-white/30 px-5 py-3 text-sm outline-orange"
+              <div className="overflow-hidden rounded-2xl">
+                <img
+                  src="/photos/careers-visit.jpg"
+                  alt="YOSA learners supported across partner schools"
+                  className="aspect-[4/3] w-full object-cover"
                 />
-                <button type="submit" className="inline-flex items-center gap-3 rounded-full bg-orange p-1.5 pr-5 text-xs font-extrabold">
-                  <span className="grid size-8 place-items-center rounded-full bg-white text-orange">
-                    <ChevronsRight size={16} />
-                  </span>
-                  Donate Now
-                </button>
-              </form>
+              </div>
               <div className="text-white">
-                <div className="eyebrow text-white">Donate Now</div>
+                <div className="eyebrow text-white">Partner Impact</div>
                 <h2 className="heading text-white">Support Learners by Raising Valuable Donations</h2>
                 <div className="mb-4 mt-12 h-1 rounded-full bg-white/30">
                   <div className="relative h-full w-[78%] bg-white">
-                    <span className="absolute -right-3 -top-7 text-xs">78%</span>
+                    <span className="absolute -right-3 -top-7 text-xs font-bold">78%</span>
                     <span className="absolute -right-1 -top-1 size-3 rounded-full border-[3px] border-white bg-orange" />
                   </div>
                 </div>
-                <div className="flex justify-between text-xs">
+                <div className="flex justify-between text-xs font-semibold">
                   <span>160+ University Acceptances</span>
                   <span>10 Partner Schools</span>
                 </div>
@@ -438,44 +459,35 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 6. Events / Impact Highlights */}
-        <section id="events" className="section bg-ink pt-0 pattern">
+        {/* 6. Our Leadership & Governance (Board of Governors) */}
+        <section id="leadership" className="section bg-[#f4f4f4]">
           <div className="wrap">
-            <div className="mb-10 flex flex-wrap items-center justify-between gap-6">
-              <div className="max-w-lg">
-                <Title label="Field Highlights" white>
-                  YOSA Programmes in Action
-                </Title>
+            <div className="mb-12 grid gap-8 lg:grid-cols-2 lg:items-end">
+              <div>
+                <Title label="Our Leadership & Governance">YOSA Board of Governors</Title>
+                <p className="mt-4 text-sm text-gray-600">
+                  Founded by Dr. Astonishment Mapurisa in 2015, the organisation operates with a clear governance framework aligned to partner and stakeholder expectations.
+                </p>
               </div>
-              <Button href="/gallery">View Full Gallery</Button>
+              <div className="rounded-2xl bg-white p-6 shadow-sm">
+                <strong className="mb-3 block text-sm font-bold text-ink">Accountability is reinforced through:</strong>
+                <div className="grid grid-cols-1 gap-2 text-xs text-gray-600 sm:grid-cols-2">
+                  <span className="flex items-center gap-2"><Check size={14} className="text-orange" /> Regular reporting</span>
+                  <span className="flex items-center gap-2"><Check size={14} className="text-orange" /> Partner-aligned data presentation</span>
+                  <span className="flex items-center gap-2"><Check size={14} className="text-orange" /> Programme monitoring systems</span>
+                  <span className="flex items-center gap-2"><Check size={14} className="text-orange" /> Transparent outcome communication</span>
+                </div>
+              </div>
             </div>
-            <div className="grid gap-6 lg:grid-cols-2">
-              {[
-                ['/photos/library/img-1557.jpg', 'After-school tutoring & digital labs'],
-                ['/photos/library/img-1573.jpg', 'Life skills & psychosocial support'],
-                ['/photos/library/img-1693.jpg', 'Family & community outreach'],
-                ['/photos/careers-visit.jpg', 'Career guidance & university pathways'],
-              ].map(([image, title]) => (
-                <article key={image} className="flex flex-col gap-5 rounded-2xl bg-white p-4 sm:flex-row">
-                  <div className="relative sm:w-[42%] sm:shrink-0">
-                    <img src={image} alt={title} className="h-60 w-full rounded-xl object-cover sm:h-full" />
-                    <span className="absolute left-3 top-3 flex size-14 flex-col items-center justify-center rounded-lg bg-white text-sm font-extrabold text-orange">
-                      10<small>Schools</small>
-                    </span>
+
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+              {BOARD.map((m) => (
+                <article key={m.name} className="rounded-2xl bg-white p-6 text-center shadow-sm transition hover:-translate-y-1">
+                  <div className="mx-auto mb-4 grid size-20 place-items-center rounded-full bg-orange/15 text-xl font-extrabold text-orange">
+                    {m.initials}
                   </div>
-                  <div className="py-3">
-                    <h3 className="text-xl font-bold leading-tight">{title}</h3>
-                    <p className="mb-3 mt-3 text-xs text-gray-500">
-                      Delivered weekly alongside educators, social workers, and community mentors across Soweto.
-                    </p>
-                    <div className="mb-4 border-t border-black/10 pt-3">
-                      <strong className="text-xs text-orange">Location</strong>
-                      <p className="mt-1 text-xs text-gray-500">{site.address}</p>
-                    </div>
-                    <Button onClick={() => setModal({ title, text: `Learn more about ${title} by reaching out to ${site.email}.` })}>
-                      Programme Details
-                    </Button>
-                  </div>
+                  <h3 className="text-base font-bold leading-snug text-ink">{m.name}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-gray-500">{m.role}</p>
                 </article>
               ))}
             </div>
@@ -492,7 +504,7 @@ export default function Home() {
               <div>
                 <Title label="Join us">Why Partner With YOSA</Title>
                 <p className="mb-6 mt-5 text-sm text-gray-500">
-                  Bring your time, skills, and resources. Together, we can build stronger schools and lasting pathways for young people.
+                  Through long-term partnership and accountable implementation, we aim to shift not only individual trajectories, but the broader conditions that shape opportunity for the next generation.
                 </p>
                 {[
                   'Fund a Learner’s Annual Kit',
@@ -653,30 +665,115 @@ export default function Home() {
             </a>
           ))}
         </div>
+
+        {/* 11. Contact Us Component */}
+        <section id="contact" className="section bg-[#f4f4f4]">
+          <div className="wrap grid gap-12 lg:grid-cols-2">
+            <div>
+              <Title label="Contact Us">Better yet, see us in person!</Title>
+              <p className="mt-4 text-sm text-gray-600">
+                <strong>Mondays to Fridays</strong> · 09:00am to 5:00pm
+              </p>
+              <div className="mt-6 flex flex-wrap gap-4">
+                <a
+                  href="https://wa.me/27630712093"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 rounded-full bg-orange px-6 py-3 text-xs font-extrabold text-white transition hover:bg-orange/90"
+                >
+                  <MessageCircle size={16} /> Message us on WhatsApp
+                </a>
+              </div>
+
+              <div className="mt-8 space-y-4 rounded-2xl bg-white p-7 shadow-sm">
+                <p className="text-sm font-bold text-ink">Youth Opportunities South Africa</p>
+                <p className="flex items-start gap-3 text-xs text-gray-600">
+                  <MapPin size={16} className="mt-0.5 shrink-0 text-orange" />
+                  Sekwati Primary School, 752 Metlatoe Street, Molapo, Soweto, 1818, South Africa
+                </p>
+                <p className="flex items-center gap-3 text-xs text-gray-600">
+                  <Mail size={16} className="shrink-0 text-orange" />
+                  <a href="mailto:info@youthopportunitiessa.org" className="hover:text-orange">
+                    info@youthopportunitiessa.org
+                  </a>
+                </p>
+                <p className="flex items-center gap-3 text-xs text-gray-600">
+                  <Phone size={16} className="shrink-0 text-orange" />
+                  <a href="tel:+27630712093" className="hover:text-orange">+27 63 071 2093</a>
+                  <span>·</span>
+                  <a href="tel:+27761186382" className="hover:text-orange">+27 76 118 6382</a>
+                </p>
+              </div>
+            </div>
+
+            <form
+              className="rounded-2xl bg-white p-8 shadow-sm"
+              onSubmit={(e) => {
+                e.preventDefault();
+                setNotice('Thank you! Your enquiry has been received. We will contact you as soon as possible.');
+                setContactForm({ name: '', email: '', mobile: '' });
+              }}
+            >
+              <h3 className="mb-2 text-xl font-bold text-ink">Send an Enquiry</h3>
+              <p className="mb-6 text-xs text-gray-500">
+                If you have any enquiries or questions, leave your details here, and we will contact you as soon as possible.
+              </p>
+              <div className="space-y-4">
+                <div>
+                  <label className="mb-1.5 block text-xs font-bold text-ink">Name*</label>
+                  <input
+                    required
+                    type="text"
+                    value={contactForm.name}
+                    onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                    placeholder="Your full name"
+                    className="w-full rounded-xl border border-black/15 px-4 py-3 text-sm outline-orange"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-xs font-bold text-ink">Email*</label>
+                  <input
+                    required
+                    type="email"
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                    placeholder="you@example.org"
+                    className="w-full rounded-xl border border-black/15 px-4 py-3 text-sm outline-orange"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-xs font-bold text-ink">Mobile</label>
+                  <input
+                    type="tel"
+                    value={contactForm.mobile}
+                    onChange={(e) => setContactForm({ ...contactForm, mobile: e.target.value })}
+                    placeholder="+27 ..."
+                    className="w-full rounded-xl border border-black/15 px-4 py-3 text-sm outline-orange"
+                  />
+                </div>
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    type="submit"
+                    className="rounded-full bg-orange px-7 py-3 text-xs font-extrabold text-white transition hover:bg-orange/90"
+                  >
+                    Send
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setContactForm({ name: '', email: '', mobile: '' })}
+                    className="rounded-full border border-black/15 px-6 py-3 text-xs font-bold text-ink hover:bg-black/5"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
-      <footer id="contact" className="relative bg-ink text-white">
-        <div className="wrap relative -top-0 grid gap-6 rounded-b-2xl bg-orange px-8 py-7 md:grid-cols-[1.4fr_1fr_1fr]">
-          {[
-            [MapPin, 'Address', site.address, null],
-            [Mail, 'Send Email', site.email, `mailto:${site.email}`],
-            [Phone, 'Call Us', site.phone, `tel:${site.phone.replace(/\s+/g, '')}`],
-          ].map(([IconComp, label, value, href]: any) => (
-            <div className="flex items-center gap-3" key={label}>
-              <span className="grid size-11 shrink-0 place-items-center rounded-full border border-white/30">
-                <span className="grid size-8 place-items-center rounded-full bg-white text-orange">
-                  <IconComp size={16} />
-                </span>
-              </span>
-              <div>
-                <span className="text-[10px] text-white/80">{label}</span>
-                <p className="text-xs font-bold">{href ? <a href={href}>{value}</a> : value}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
+      <footer className="relative bg-ink text-white">
         <div className="wrap grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-[1.1fr_.7fr_1.1fr_1.1fr]">
           <div>
             <img src="/brand/yosa-logo-white.svg" alt="YOSA" className="mb-6 w-40" />
@@ -703,8 +800,8 @@ export default function Home() {
             {[
               ['About Us', '#about'],
               ['Our Programmes', '#causes'],
+              ['Leadership', '#leadership'],
               ['Photo Gallery', '/gallery'],
-              ['Partner With Us', '#volunteer'],
               ['Contact Us', '#contact'],
             ].map(([t, h]) => (
               <a href={h} key={t} className="mb-3 flex items-center gap-2 text-xs text-white/70 hover:text-orange">
@@ -718,19 +815,23 @@ export default function Home() {
             <h3 className="mb-6 text-xl font-bold">Registration</h3>
             <div className="mb-6 h-0.5 w-16 bg-orange" />
             <p className="text-xs text-white/70">Reg: {site.reg}</p>
-            <p className="mt-2 text-xs text-white/70">{site.address}</p>
+            <p className="mt-2 text-xs text-white/70">Sekwati Primary School, 752 Metlatoe Street, Molapo, Soweto, 1818</p>
           </div>
 
           <div>
             <h3 className="mb-6 text-xl font-bold">Contact Us</h3>
             <div className="mb-6 h-0.5 w-16 bg-orange" />
-            <a href={`mailto:${site.email}`} className="mb-3 flex items-center gap-2 text-xs">
+            <a href="mailto:info@youthopportunitiessa.org" className="mb-3 flex items-center gap-2 text-xs">
               <Mail size={14} />
-              {site.email}
+              info@youthopportunitiessa.org
             </a>
-            <a href={`tel:${site.phone.replace(/\s+/g, '')}`} className="mb-5 flex items-center gap-2 text-xs">
+            <a href="tel:+27630712093" className="mb-3 flex items-center gap-2 text-xs">
               <Phone size={14} />
-              {site.phone}
+              +27 63 071 2093
+            </a>
+            <a href="tel:+27761186382" className="mb-5 flex items-center gap-2 text-xs">
+              <Phone size={14} />
+              +27 76 118 6382
             </a>
           </div>
         </div>
